@@ -17,9 +17,9 @@ import '../rxjs-operators';
 
               <div class="list-group">
                 <div *ngIf="selectedExam">
-                <label>{{selectedExam.university}}</label><br/>
-                <label>{{selectedExam.period}}</label><br/>
-                <label>{{selectedExam.course}}</label><br/>
+                  <label>{{selectedExam.period}}</label><br/>
+                  <label>{{selectedExam.course}}</label><br/>
+                  <label>{{selectedExam.type}}</label><br/>
                 </div>
                 <div *ngIf="selectedExam">
                 <ul >
