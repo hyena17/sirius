@@ -5,8 +5,8 @@ import { ExamService } from '../services/exam.service';
 import '../rxjs-operators';
 
 @Component({
-    selector: 'exams-list',
-    template: `
+  selector: 'exams-list',
+  template: `
               <div class="list-group">
               <ul >
               <li *ngFor="let exam of exams" class="list-group-item list-group-item-action" (click)="onSelect(exam)">
@@ -44,67 +44,67 @@ import '../rxjs-operators';
 
 
               `,
-    providers: [ExamService]
+  providers: [ExamService]
 })
 
 export class ExamComponent implements OnInit {
-    exams: Exam[];
-    selectedExam: Exam;
-    selectedQuestions: Question[];
+  exams: Exam[];
+  selectedExam: Exam;
+  selectedQuestions: Question[];
 
-    selectedAnswer: string[];
-    selectedClass: string[][];
+  selectedAnswer: string[];
+  selectedClass: string[][];
 
-    errorMessage: string;
-    mode = 'Observable';
-    clase = 'has-success'
+  errorMessage: string;
+  mode = 'Observable';
+  clase = 'has-success'
 
-    @Output() eventListenWriter = new EventEmitter<Exam>();
+  @Output() eventListenWriter = new EventEmitter<Exam>();
 
-    constructor(private examService: ExamService) { }
+  constructor(private examService: ExamService) { }
 
-    getExams(): void {
-        this.examService.getExams().subscribe(
-            exams => this.exams = exams,
-            error => this.errorMessage = <any>error);
-    }
-    ngOnInit(): void {
-        this.getExams();
-        this.selectedAnswer = [];
-        this.selectedClass = [[], [], [], [], []];
-    }
+  getExams(): void {
+    this.examService.getExams().subscribe(
+      exams => this.exams = exams,
+      error => this.errorMessage = <any>error);
+  }
+  ngOnInit(): void {
+    this.getExams();
+    this.selectedAnswer = [];
+    this.selectedClass = [[], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], []];
+  }
 
-    onSelect(exam: Exam): void {
-        this.selectedExam = exam;
-        this.selectedQuestions = exam.questions;
-    }
+  onSelect(exam: Exam): void {
+    this.selectedExam = exam;
+    this.selectedQuestions = exam.questions;
+  }
 
 
-    evaluateExam(): void {
-        var contador = 0;
-        var indice = 0;
-        var verdadero = 0;
-        for (var question of this.selectedQuestions) {
-            indice = 0;
-            verdadero = 0;
-            for (var answer of question.options) {
-                if (question.answer == answer) {
-                    verdadero = indice;
-                }
-                if (question.answer == this.selectedAnswer[contador] && this.selectedAnswer[contador] == answer) {
-                    this.selectedClass[contador][indice] = "has-success";
+  evaluateExam(): void {
+    var contador = 0;
+    var indice = 0;
+    var verdadero = 0;
+    for (var question of this.selectedQuestions) {
+      indice = 0;
+      verdadero = 0;
+      for (var answer of question.options) {
+        if (question.answer == answer) {
+          verdadero = indice;
+        }
+        if (question.answer == this.selectedAnswer[contador] && this.selectedAnswer[contador] == answer) {
+          this.selectedClass[contador][indice] = "has-success";
 
-                } else if (answer == this.selectedAnswer[contador]) {
-                    this.selectedClass[contador][indice] = "has-danger";
-                }
-
-                indice++;
-            }
-            this.selectedClass[contador][verdadero] = "has-success";
-            contador++;
+        } else if (answer == this.selectedAnswer[contador]) {
+          this.selectedClass[contador][indice] = "has-danger";
         }
 
-        //  alert(this.selectedAnswer);
+        indice++;
+      }
+      this.selectedClass[contador][verdadero] = "has-success";
+      contador++;
     }
+
+    //  alert(this.selectedAnswer);
+  }
 
 }
