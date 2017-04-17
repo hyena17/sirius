@@ -15,7 +15,7 @@ import '../rxjs-operators';
               <div class="list-group">
               <ul >
               <li *ngFor="let course of courses" class="list-group-item list-group-item-action" (click)="onSelectCourse(course)">
-                <span class="badge">{{course.course}}</span>
+                <span class="badge">{{course._id}}</span>
               </li>
               </ul>
               </div>
@@ -119,8 +119,9 @@ export class ExamComponent implements OnInit {
   }
   onSelectCourse(course: Course): void {
     this.selectedCourse = course;
-    this.getExamsByCourse(this.selectedCourse.course);
+    this.getExamsByCourse(this.selectedCourse._id);
   }
+
 
   evaluateExam(): void {
     var contador = 0;

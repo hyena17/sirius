@@ -31,7 +31,7 @@ export class ExamService {
   }
 
   getCourses(): Observable<Course[]> {
-    return this.http.get(this.collectionUrl + "?filter[fields][course]=true").map(this.extractData)
+    return this.http.get(this.collectionUrl + "/courses").map(this.extractData)
       .catch(this.handleError);
   }
 

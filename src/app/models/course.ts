@@ -1,3 +1,3 @@
 export class Course {
-  course: string;
+  _id: string;
 }
