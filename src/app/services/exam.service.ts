@@ -2,6 +2,10 @@ import { Injectable } from '@angular/core';
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
 
 import { Exam } from '../models/exam';
+import { Period } from '../models/period';
+import { Course } from '../models/course';
+
+
 import { Observable }     from 'rxjs/Observable';
 import { environment } from '../../environments/environment';
 
@@ -15,7 +19,21 @@ export class ExamService {
       .map(this.extractData)
       .catch(this.handleError);
   }
+  getExamsByCourse(course): Observable<Exam[]> {
+    return this.http.get(this.collectionUrl + "?filter[where][course]=" + course)
+      .map(this.extractData)
+      .catch(this.handleError);
+  }
 
+  getPeriods(): Observable<Period[]> {
+    return this.http.get(this.collectionUrl + "?filter[fields][period]=true").map(this.extractData)
+      .catch(this.handleError);
+  }
+
+  getCourses(): Observable<Course[]> {
+    return this.http.get(this.collectionUrl + "?filter[fields][course]=true").map(this.extractData)
+      .catch(this.handleError);
+  }
 
   private extractData(res: Response) {
     let body = res.json();

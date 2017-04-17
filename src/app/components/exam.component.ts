@@ -1,19 +1,33 @@
 import { Component, OnInit, EventEmitter, Output} from '@angular/core';
 import { Exam } from '../models/exam';
 import { Question } from '../models/question';
+import { Period } from '../models/period';
+import { Course } from '../models/course';
+
 import { ExamService } from '../services/exam.service';
 import '../rxjs-operators';
 
 @Component({
   selector: 'exams-list',
   template: `
+
+
               <div class="list-group">
               <ul >
-              <li *ngFor="let exam of exams" class="list-group-item list-group-item-action" (click)="onSelect(exam)">
-                <span class="badge">{{exam.university}}</span> {{exam.period}}
+              <li *ngFor="let course of courses" class="list-group-item list-group-item-action" (click)="onSelectCourse(course)">
+                <span class="badge">{{course.course}}</span>
               </li>
               </ul>
               </div>
+
+              <div class="list-group">
+                <div *ngIf="selectedCourse">
+                <li *ngFor="let exam of exams" class="list-group-item list-group-item-action" (click)="onSelect(exam)">
+                  <span class="badge">{{exam.period}}</span> {{exam.type}}
+                </li>
+                </div>
+              </div>
+
 
               <div class="list-group">
                 <div *ngIf="selectedExam">
@@ -49,7 +63,11 @@ import '../rxjs-operators';
 
 export class ExamComponent implements OnInit {
   exams: Exam[];
+  periods: Period[];
+  courses: Course[];
+
   selectedExam: Exam;
+  selectedCourse: Course;
   selectedQuestions: Question[];
 
   selectedAnswer: string[];
@@ -68,8 +86,29 @@ export class ExamComponent implements OnInit {
       exams => this.exams = exams,
       error => this.errorMessage = <any>error);
   }
+  getExamsByCourse(course: string): void {
+    this.examService.getExamsByCourse(course).subscribe(
+      exams => this.exams = exams,
+      error => this.errorMessage = <any>error);
+  }
+  getPeriods(): void {
+    this.examService.getPeriods().subscribe(
+      periods => this.periods = periods,
+      error => this.errorMessage = <any>error
+    );
+  }
+  getCourses(): void {
+    this.examService.getCourses().subscribe(
+      courses => this.courses = courses,
+      error => this.errorMessage = <any>error
+    );
+  }
+
+
   ngOnInit(): void {
     this.getExams();
+    this.getCourses();
+    this.getPeriods();
     this.selectedAnswer = [];
     this.selectedClass = [[], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], []];
   }
@@ -78,7 +117,10 @@ export class ExamComponent implements OnInit {
     this.selectedExam = exam;
     this.selectedQuestions = exam.questions;
   }
-
+  onSelectCourse(course: Course): void {
+    this.selectedCourse = course;
+    this.getExamsByCourse(this.selectedCourse.course);
+  }
 
   evaluateExam(): void {
     var contador = 0;
