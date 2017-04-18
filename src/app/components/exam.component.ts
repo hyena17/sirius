@@ -57,15 +57,14 @@ import '../rxjs-operators';
                         </label>
                       </div>
                   </div>
-
                 </li>
-                </ul>
-                <button class="btn btn-primary"  (click)="evaluateExam();">Submit</button>
+                <br/>
+                <div  align="center">
+                  <button class="btn btn-primary"  (click)="evaluateExam();">Submit</button>
                 </div>
-
+                </ul>
+                </div>
               </div>
-
-
               `,
   providers: [ExamService]
 })
