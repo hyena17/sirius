@@ -22,18 +22,22 @@ import '../rxjs-operators';
 
               <div class="list-group">
                 <div *ngIf="selectedCourse">
+                <ul >
                 <li *ngFor="let exam of exams" class="list-group-item list-group-item-action" (click)="onSelect(exam)">
-                  <span class="badge">{{exam.period}}</span> {{exam.type}}
+                  <span class="badge">{{exam.period}} {{exam.type}}</span>
                 </li>
+                </ul>
                 </div>
               </div>
 
 
               <div class="list-group">
-                <div *ngIf="selectedExam">
-                  <label>{{selectedExam.period}}</label><br/>
-                  <label>{{selectedExam.course}}</label><br/>
-                  <label>{{selectedExam.type}}</label><br/>
+                <div *ngIf="selectedExam" align="center">
+                  <ul>
+                  <label style="font-weight:bold">{{selectedExam.period}}</label><br/>
+                  <label style="font-weight:bold">{{selectedExam.course}}</label><br/>
+                  <label style="font-weight:bold">{{selectedExam.type}}</label><br/>
+                  </ul>
                 </div>
                 <div *ngIf="selectedExam">
                 <ul >
@@ -111,9 +115,7 @@ export class ExamComponent implements OnInit {
 
 
   ngOnInit(): void {
-    this.getExams();
     this.getCourses();
-    this.getPeriods();
     this.selectedAnswer = [];
     this.selectedClass = [[], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], []];
   }
@@ -124,6 +126,7 @@ export class ExamComponent implements OnInit {
   }
   onSelectCourse(course: Course): void {
     this.selectedCourse = course;
+    this.selectedExam = null;
     this.getExamsByCourse(this.selectedCourse._id);
   }
 
