@@ -47,13 +47,13 @@ import '../rxjs-operators';
                   <img id="image" class="img-fluid" alt="Responsive image" src="{{image}}" >
                   </div>
                   </div>
-                  <span class="badge">{{question.question}}</span>
+                  <span class="badge">{{index+1}}) {{question.question}}</span>
                   <div class="form-check"  *ngFor="let answer of question.options;let indexe=index"  >
                     <div [(ngClass)]="selectedClass[index][indexe]">
                         <label class="form-check-label"  >
                           <input type="radio"  [(ngModel)]="selectedAnswer[index]" value="{{answer}}" name="{{question.question}}"
                           class="form-check-input">
-                            {{answer}}
+                            {{getLetter(indexe)}}) {{answer}}
                         </label>
                       </div>
                   </div>
@@ -130,6 +130,9 @@ export class ExamComponent implements OnInit {
     this.getExamsByCourse(this.selectedCourse._id);
   }
 
+  getLetter(index): string {
+    return String.fromCharCode(65 + index);
+  }
 
   evaluateExam(): void {
     var contador = 0;
