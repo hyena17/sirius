@@ -38,6 +38,11 @@ import '../rxjs-operators';
                 <div *ngIf="selectedExam">
                 <ul >
                 <li *ngFor="let question of selectedQuestions;let index = index" class="list-group-item list-group-item-action">
+                  <div *ngIf="question.image" >
+                  <div *ngFor="let image of question.imageUrl">
+                  <img id="image" class="img-fluid" alt="Responsive image" src="{{image}}" >
+                  </div>
+                  </div>
                   <span class="badge">{{question.question}}</span>
                   <div class="form-check"  *ngFor="let answer of question.options;let indexe=index"  >
                     <div [(ngClass)]="selectedClass[index][indexe]">
