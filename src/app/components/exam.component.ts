@@ -136,7 +136,7 @@ export class ExamComponent implements OnInit {
   }
 
   getLetter(index): string {
-    return String.fromCharCode(65 + index);
+    return String.fromCharCode(97 + index);
   }
 
   evaluateExam(): void {
