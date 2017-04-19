@@ -122,11 +122,17 @@ export class ExamComponent implements OnInit {
   onSelect(exam: Exam): void {
     this.selectedExam = exam;
     this.selectedQuestions = exam.questions;
+    this.selectedAnswer = [];
+    this.selectedClass = [[], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], []];
+
   }
   onSelectCourse(course: Course): void {
     this.selectedCourse = course;
     this.selectedExam = null;
     this.getExamsByCourse(this.selectedCourse._id);
+    this.selectedAnswer = [];
+    this.selectedClass = [[], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], []];
+
   }
 
   getLetter(index): string {
