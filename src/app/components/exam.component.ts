@@ -14,6 +14,8 @@ import '../rxjs-operators';
 
               <div class="list-group">
               <ul >
+              <span>Por casualidad necesitas PC1's de Farmo? pues ya estan disponibles 2 PC1 pasadas</span>
+
               <li *ngFor="let course of courses" class="list-group-item list-group-item-action" (click)="onSelectCourse(course)">
                 <span class="badge">{{course._id}}</span>
               </li>
