@@ -63,40 +63,46 @@
           <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
           <!--End language selector-->
 
-
-
           <!--User dropdown-->
           <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
           <li id="dropdown-user" class="dropdown">
-            <a href="#" data-toggle="dropdown" class="dropdown-toggle text-right">
-              <span class="pull-right">
-                                  <!--<img class="img-circle img-user media-object" src="img/profile-photos/1.png" alt="Profile Picture">-->
-                                  <i class="demo-pli-male ic-user"></i>
-                              </span>
-              <div class="username hidden-xs"> {{name}}</div>
-            </a>
+            <div *ngIf="name===undefined">
+              <button class="btn btn-mint" (click)="myFacebookStatus()">Login</button>
+            </div>
+
+            <!-- Section when loggin -->
+            <div *ngIf="name">
+              <a href="#" data-toggle="dropdown" class="dropdown-toggle text-right">
+                <span class="pull-right">
+                                    <!--<img class="img-circle img-user media-object" src="img/profile-photos/1.png" alt="Profile Picture">-->
+                                    <i class="demo-pli-male ic-user"></i>
+                </span>
+                <div   class="username hidden-xs"> {{name}}</div>
+              </a>
 
 
-            <div class="dropdown-menu dropdown-menu-md dropdown-menu-right panel-default">
+              <div class="dropdown-menu dropdown-menu-md dropdown-menu-right panel-default">
 
 
 
-              <!-- User dropdown menu -->
-              <ul class="head-list">
-                <li>
-                  <a href="#">
-                    <i class="demo-pli-male icon-lg icon-fw"></i> Profile
+                <!-- User dropdown menu -->
+                <ul class="head-list">
+                  <li>
+                    <a href="#">
+                      <i class="demo-pli-male icon-lg icon-fw"></i> Profile
+                    </a>
+                  </li>
+                </ul>
+
+                <!-- Dropdown footer -->
+                <div class="pad-all text-right">
+                  <a href="pages-login.html" class="btn btn-primary">
+                    <i class="demo-pli-unlock"></i> Logout
                   </a>
-                </li>
-              </ul>
-
-              <!-- Dropdown footer -->
-              <div class="pad-all text-right">
-                <a href="pages-login.html" class="btn btn-primary">
-                  <i class="demo-pli-unlock"></i> Logout
-                </a>
+                </div>
               </div>
             </div>
+
           </li>
           <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
           <!--End user dropdown-->
@@ -140,9 +146,7 @@
             <div class="panel-body">
             <router-outlet></router-outlet>
             </div>
-            <div  *ngIf="name===undefined" align="center">
-              <button type="button" class="btn btn-primary" (click)="myFacebookStatus()">Login with Facebook</button>
-            </div>
+
             </div>
 
           </div>
