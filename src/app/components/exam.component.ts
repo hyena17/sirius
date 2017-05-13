@@ -46,6 +46,13 @@ import '../rxjs-operators';
   </div>
 
   <div  *ngIf="selectedExam">
+  <div  align="center">
+                 <ul>
+                 <label style="font-weight:bold">{{selectedExam.period}}</label><br/>
+                 <label style="font-weight:bold">{{selectedExam.course}}</label><br/>
+                 <label style="font-weight:bold">{{selectedExam.type}}</label><br/>
+                 </ul>
+  </div>
   <div class="form-group" *ngFor="let question of selectedQuestions;let index = index">
     <div *ngIf="question.image" >
       <div *ngFor="let image of question.imageUrl">
