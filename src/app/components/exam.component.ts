@@ -11,63 +11,62 @@ import '../rxjs-operators';
   selector: 'exams-list',
   template: `
 
+  <table class="table table-bordered table-hover ">
+  <thead>
+    <tr>
+      <th class="text-center">#</th>
+      <th >Course</th>
+    </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let course of courses;let index = index" (click)="onSelectCourse(course)">
+    <td class="text-center">{{index}}</td>
+    <td >{{course._id}}</td>
+  </tr>
+  </tbody>
+  </table>
 
-              <div class="list-group">
-              <ul >
-              <span>Material disponible para el parcial de circulatorio! Suerte!!!</span>
+  <div *ngIf="selectedCourse">
+  <table class="table table-bordered table-hover ">
+  <thead>
+    <tr>
+      <th class="text-center">#</th>
+      <th>Period</th>
+      <th>Type</th>
+    </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let exam of exams;let index = index" (click)="onSelect(exam)">
+    <td class="text-center">{{index}}</td>
+    <td >{{exam.period}}</td>
+    <td >{{exam.type}}</td>
+  </tr>
+  </tbody>
+  </table>
+  </div>
 
-              <li *ngFor="let course of courses" class="list-group-item list-group-item-action" (click)="onSelectCourse(course)">
-                <span class="badge">{{course._id}}</span>
-              </li>
-              </ul>
-              </div>
+  <div  *ngIf="selectedExam">
+  <div class="form-group" *ngFor="let question of selectedQuestions;let index = index">
+    <div *ngIf="question.image" >
+      <div *ngFor="let image of question.imageUrl">
+      <img id="image" class="img-fluid" alt="Responsive image" src="{{image}}" >
+      </div>
+      </div>
 
-              <div class="list-group">
-                <div *ngIf="selectedCourse">
-                <ul >
-                <li *ngFor="let exam of exams" class="list-group-item list-group-item-action" (click)="onSelect(exam)">
-                  <span class="badge">{{exam.period}} {{exam.type}}</span>
-                </li>
-                </ul>
-                </div>
-              </div>
-
-
-              <div class="list-group">
-                <div *ngIf="selectedExam" align="center">
-                  <ul>
-                  <label style="font-weight:bold">{{selectedExam.period}}</label><br/>
-                  <label style="font-weight:bold">{{selectedExam.course}}</label><br/>
-                  <label style="font-weight:bold">{{selectedExam.type}}</label><br/>
-                  </ul>
-                </div>
-                <div *ngIf="selectedExam">
-                <ul >
-                <li *ngFor="let question of selectedQuestions;let index = index" class="list-group-item list-group-item-action">
-                  <div *ngIf="question.image" >
-                  <div *ngFor="let image of question.imageUrl">
-                  <img id="image" class="img-fluid" alt="Responsive image" src="{{image}}" >
-                  </div>
-                  </div>
-                  <span class="badge">{{index+1}}) {{question.question}}</span>
-                  <div class="form-check"  *ngFor="let answer of question.options;let indexe=index"  >
-                    <div [(ngClass)]="selectedClass[index][indexe]">
-                        <label class="form-check-label"  >
-                          <input type="radio"  [(ngModel)]="selectedAnswer[index]" value="{{answer}}" name="{{question.question}}"
-                          class="form-check-input">
-                            {{getLetter(indexe)}}) {{answer}}
-                        </label>
-                      </div>
-                  </div>
-                </li>
-                <br/>
-                <div  align="center">
-                  <button class="btn btn-primary"  (click)="evaluateExam();">Submit</button>
-                </div>
-                </ul>
-                </div>
-              </div>
-              `,
+    <label >{{index+1}}) {{question.question}}</label>
+    <div class="radio" *ngFor="let answer of question.options;let indexe=index">
+      <div  [(ngClass)]="selectedClass[index][indexe]">
+      <input class="magic-radio" type="radio"  id="{{index}}:{{indexe}}" [(ngModel)]="selectedAnswer[index]" value="{{answer}}" name="{{question.question}}">
+        <label for="{{index}}:{{indexe}}">
+        {{getLetter(indexe)}}) {{answer}}</label>
+      </div>
+    </div>
+  </div>
+  <div  align="text-right">
+    <button class="btn btn-success"  (click)="evaluateExam();">Submit</button>
+  </div>
+  </div>
+        `,
   providers: [ExamService]
 })
 
@@ -145,6 +144,7 @@ export class ExamComponent implements OnInit {
     var contador = 0;
     var indice = 0;
     var verdadero = 0;
+
     for (var question of this.selectedQuestions) {
       indice = 0;
       verdadero = 0;
@@ -153,19 +153,18 @@ export class ExamComponent implements OnInit {
           verdadero = indice;
         }
         if (question.answer == this.selectedAnswer[contador] && this.selectedAnswer[contador] == answer) {
-          this.selectedClass[contador][indice] = "has-success";
+          this.selectedClass[contador][indice] = "text-success";
+
 
         } else if (answer == this.selectedAnswer[contador]) {
-          this.selectedClass[contador][indice] = "has-danger";
+          this.selectedClass[contador][indice] = "text-danger";
         }
 
         indice++;
       }
-      this.selectedClass[contador][verdadero] = "has-success";
+      this.selectedClass[contador][verdadero] = "text-success";
       contador++;
     }
-
-    //  alert(this.selectedAnswer);
   }
 
 }

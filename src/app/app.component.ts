@@ -8,44 +8,14 @@ import './rxjs-operators';
 
 @Component({
   selector: 'my-app',
-  template: `
-  <!-- header -->
-  <header class="header-fixed">
-    <div class="header-limiter">
-      <h1>
-          U<span>boo</span>
-      </h1>
-    </div>
-    <div *ngIf="name" class="header-limiter" align="right">
-          {{name}}
-    </div>
-  </header>
-  <div class="header-fixed-placeholder"></div>
-
-
-  <!--Display the application -->
-
-  <div class="container">
-    <div class="row">
-
-    <nav style="margin-left: 40px;">
-    </nav>
-    <router-outlet></router-outlet>
-    <div  *ngIf="name===undefined" align="center">
-      <button type="button" class="btn btn-primary" (click)="myFacebookStatus()">Login with Facebook</button>
-    </div>
-
-    </div>
-
-  </div>
-    `
+  templateUrl: 'app.component.html'
 })
 
 export class AppComponent {
   name: string;
+  email: string;
 
   constructor(private _ngZone: NgZone) {
-
   }
 
   myFacebookStatus() {
@@ -59,10 +29,11 @@ export class AppComponent {
   }
 
   myfacebookProfile() {
-    WindowRef.get().FB.api('/me',
+    WindowRef.get().FB.api('/me', 'get', { fields: 'id,name,email,gender' },
       (response: any) => {
         this._ngZone.run(() => {
           this.name = response.name.substr(0, response.name.indexOf(" "));
+          this.email = response.email;
         });
       }
     );
