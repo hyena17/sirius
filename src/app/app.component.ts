@@ -39,4 +39,15 @@ export class AppComponent {
     );
   }
 
+  myfacebookLogout() {
+    WindowRef.get().FB.logout(
+      (response: any) => {
+        this._ngZone.run(() => {
+          this.name = undefined;
+          this.email = undefined;
+        });
+      }
+    );
+  }
+
 }
