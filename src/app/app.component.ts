@@ -2,6 +2,7 @@ import { Component, Input, OnInit, NgZone } from '@angular/core';
 import { Observable }     from 'rxjs/Observable';
 import { environment } from '../environments/environment';
 import { WindowRef } from './windowRef';
+import {User} from './models/user';
 
 import './rxjs-operators';
 
@@ -12,10 +13,12 @@ import './rxjs-operators';
 })
 
 export class AppComponent {
-  name: string;
-  email: string;
+  currentUser: User;
 
   constructor(private _ngZone: NgZone) {
+    this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
+    console.log('user on load');
+    console.log(this.currentUser);
   }
 
   myFacebookStatus() {
@@ -32,19 +35,31 @@ export class AppComponent {
     WindowRef.get().FB.api('/me', 'get', { fields: 'id,name,email,gender' },
       (response: any) => {
         this._ngZone.run(() => {
-          this.name = response.name.substr(0, response.name.indexOf(" "));
-          this.email = response.email;
+          var name = response.name.substr(0, response.name.indexOf(" "));
+          var email = response.email;
+          localStorage.setItem('currentUser', JSON.stringify({ name: name, email: email }));
+          location.reload();
         });
       }
     );
   }
 
-  myfacebookLogout() {
+  myfacebookLogoutWrapper() {
+    WindowRef.get().FB.getLoginStatus((response: any) => {
+      if (response.status === 'connected') {
+        this.myFacebookLogout();
+      } else {
+        WindowRef.get().FB.login((response: any) => { this.myFacebookLogout(); }, { scope: 'public_profile,email' });
+      }
+    });
+  }
+
+  myFacebookLogout() {
     WindowRef.get().FB.logout(
       (response: any) => {
         this._ngZone.run(() => {
-          this.name = undefined;
-          this.email = undefined;
+          localStorage.removeItem('currentUser');
+          location.reload();
         });
       }
     );

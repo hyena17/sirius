@@ -66,18 +66,18 @@
           <!--User dropdown-->
           <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
           <li id="dropdown-user" class="dropdown">
-            <div *ngIf="name===undefined">
+            <div *ngIf="currentUser===null">
               <button class="btn btn-mint" (click)="myFacebookStatus()">Login</button>
             </div>
 
             <!-- Section when loggin -->
-            <div *ngIf="name">
+            <div *ngIf="currentUser">
               <a href="#" data-toggle="dropdown" class="dropdown-toggle text-right">
                 <span class="pull-right">
                                     <!--<img class="img-circle img-user media-object" src="img/profile-photos/1.png" alt="Profile Picture">-->
                                     <i class="demo-pli-male ic-user"></i>
                 </span>
-                <div   class="username hidden-xs"> {{name}}</div>
+                <div   class="username hidden-xs"> {{currentUser.name}}</div>
               </a>
 
 
@@ -95,7 +95,7 @@
                 </ul>
 
                 <!-- Dropdown footer -->
-                <div class="pad-all text-right" (click)="myfacebookLogout()">
+                <div class="pad-all text-right" (click)="myfacebookLogoutWrapper()">
                   <div  class="btn btn-primary">
                     <i class="demo-pli-unlock"></i> Logout
                   </div>
@@ -169,7 +169,7 @@
         <!--================================-->
         <div id="mainnav-menu-wrap">
           <div class="nano">
-            <div class="nano-content">
+            <div  *ngIf="currentUser" class="nano-content">
 
               <!--Profile Widget-->
               <!--================================-->
@@ -183,15 +183,15 @@
                     <span class="pull-right dropdown-toggle">
                                               <i class="dropdown-caret"></i>
                                           </span>
-                    <p class="mnp-name"> {{name}}</p>
-                    <span class="mnp-desc">{{email}}</span>
+                    <p class="mnp-name"> {{currentUser.name}}</p>
+                    <span class="mnp-desc">{{currentUser.email}}</span>
                   </a>
                 </div>
                 <div id="profile-nav" class="collapse list-group bg-trans">
                   <a href="#" class="list-group-item">
                     <i class="demo-pli-male icon-lg icon-fw"></i> View Profile
                   </a>
-                  <div class="list-group-item" (click)="myfacebookLogout()">
+                  <div class="list-group-item" (click)="myfacebookLogoutWrapper()">
                     <i class="demo-pli-unlock icon-lg icon-fw"></i> Logout
                   </div>
                 </div>
