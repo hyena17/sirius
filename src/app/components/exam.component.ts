@@ -46,32 +46,40 @@ import '../rxjs-operators';
   </div>
 
   <div  *ngIf="selectedExam">
-  <div  align="center">
+
+  <div class="panel panel-colorful panel-mint">
+  <div  align="center" class="panel-heading">
                  <ul>
-                 <label style="font-weight:bold">{{selectedExam.period}}</label><br/>
-                 <label style="font-weight:bold">{{selectedExam.course}}</label><br/>
-                 <label style="font-weight:bold">{{selectedExam.type}}</label><br/>
+                 <label class="panel-title">{{selectedExam.period}} : {{selectedExam.course}} - {{selectedExam.type}}</label><br/>
                  </ul>
   </div>
-  <div class="form-group" *ngFor="let question of selectedQuestions;let index = index">
+  </div>
+
+
+  <div class="form-group panel panel-bordered panel-mint" *ngFor="let question of selectedQuestions;let index = index">
+  <div class="panel-heading">
+  <h3 class="panel-title"><strong>{{index+1}}) </strong>{{question.question}}</h3>
+  </div>
+  <div class="panel-body">
     <div *ngIf="question.image" >
       <div *ngFor="let image of question.imageUrl">
       <img id="image" class="img-fluid" alt="Responsive image" src="{{image}}" >
       </div>
       </div>
 
-    <label >{{index+1}}) {{question.question}}</label>
     <div class="radio" *ngFor="let answer of question.options;let indexe=index">
       <div  [(ngClass)]="selectedClass[index][indexe]">
       <input class="magic-radio" type="radio"  id="{{index}}:{{indexe}}" [(ngModel)]="selectedAnswer[index]" value="{{answer}}" name="{{question.question}}">
         <label for="{{index}}:{{indexe}}">
-        {{getLetter(indexe)}}) {{answer}}</label>
+        <strong>{{getLetter(indexe)}}) </strong> {{answer}}</label>
       </div>
     </div>
+  </div>
   </div>
   <div  align="text-right">
     <button class="btn btn-success"  (click)="evaluateExam();">Submit</button>
   </div>
+
   </div>
         `,
   providers: [ExamService]
