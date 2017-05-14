@@ -1,4 +1,4 @@
-import { Component, OnInit, EventEmitter, Output} from '@angular/core';
+import { Component, OnInit, EventEmitter, Output, AfterViewChecked, ElementRef, ViewChild} from '@angular/core';
 import { Exam } from '../models/exam';
 import { Question } from '../models/question';
 import { Period } from '../models/period';
@@ -45,13 +45,22 @@ import '../rxjs-operators';
   </table>
   </div>
 
-  <div  *ngIf="selectedExam">
+  <div  *ngIf="selectedExam"  #scrollMe>
 
-  <div class="panel panel-colorful panel-mint">
+  <div class="panel panel-colorful panel-primary">
   <div  align="center" class="panel-heading">
                  <ul>
                  <label class="panel-title">{{selectedExam.period}} : {{selectedExam.course}} - {{selectedExam.type}}</label><br/>
                  </ul>
+  </div>
+  </div>
+  <div *ngIf="gradeClass!==undefined">
+  <div [(ngClass)]="gradeClass">
+  <div  align="center" class="panel-heading">
+                 <ul>
+                 <label class="panel-title">{{gradeMessage}} {{goodAnswers}}</label><br/>
+                 </ul>
+  </div>
   </div>
   </div>
 
@@ -97,9 +106,14 @@ export class ExamComponent implements OnInit {
   selectedAnswer: string[];
   selectedClass: string[][];
 
+  goodAnswers: number;
+  badAnswers: number;
+  gradeClass: string;
+  gradeMessage: string;
+  @ViewChild('scrollMe') private myScrollContainer: ElementRef;
+
   errorMessage: string;
   mode = 'Observable';
-  clase = 'has-success'
 
   @Output() eventListenWriter = new EventEmitter<Exam>();
 
@@ -140,7 +154,10 @@ export class ExamComponent implements OnInit {
     this.selectedQuestions = exam.questions;
     this.selectedAnswer = [];
     this.selectedClass = [[], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], []];
-
+    this.goodAnswers = 0;
+    this.badAnswers = 0;
+    this.gradeClass = undefined;
+    this.gradeMessage = undefined;
   }
   onSelectCourse(course: Course): void {
     this.selectedCourse = course;
@@ -148,7 +165,10 @@ export class ExamComponent implements OnInit {
     this.getExamsByCourse(this.selectedCourse._id);
     this.selectedAnswer = [];
     this.selectedClass = [[], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], []];
-
+    this.goodAnswers = 0;
+    this.badAnswers = 0;
+    this.gradeClass = undefined;
+    this.gradeMessage = undefined;
   }
 
   getLetter(index): string {
@@ -159,7 +179,8 @@ export class ExamComponent implements OnInit {
     var contador = 0;
     var indice = 0;
     var verdadero = 0;
-
+    this.goodAnswers = 0;
+    this.badAnswers = 0;
     for (var question of this.selectedQuestions) {
       indice = 0;
       verdadero = 0;
@@ -169,10 +190,10 @@ export class ExamComponent implements OnInit {
         }
         if (question.answer == this.selectedAnswer[contador] && this.selectedAnswer[contador] == answer) {
           this.selectedClass[contador][indice] = "text-success";
-
-
+          this.goodAnswers++;
         } else if (answer == this.selectedAnswer[contador]) {
           this.selectedClass[contador][indice] = "text-danger";
+          this.badAnswers++;
         }
 
         indice++;
@@ -180,6 +201,27 @@ export class ExamComponent implements OnInit {
       this.selectedClass[contador][verdadero] = "text-success";
       contador++;
     }
+
+    var note = this.goodAnswers / (this.goodAnswers + this.badAnswers) * 100;
+
+    if (note >= 75) {
+      this.gradeClass = "panel panel-colorful panel-success";
+      this.gradeMessage = "Muy bien :D Sacaste ";
+    }
+    else if (note >= 50 && note < 75) {
+      this.gradeClass = "panel panel-colorful panel-warning";
+      this.gradeMessage = "Estudia un poco mas vas en buen camino :). Sacaste ";
+
+    } else if (note >= 25 && note < 50) {
+      this.gradeClass = "panel panel-colorful panel-danger";
+      this.gradeMessage = "Estudia mas :(. Sacaste ";
+    } else {
+      this.gradeClass = "panel panel-colorful panel-dark";
+      this.gradeMessage = "TROLOLOL . Sacaste ";
+    }
+
+    this.myScrollContainer.nativeElement.scrollIntoView(true);
+
   }
 
 }

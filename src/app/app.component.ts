@@ -17,8 +17,6 @@ export class AppComponent {
 
   constructor(private _ngZone: NgZone) {
     this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
-    console.log('user on load');
-    console.log(this.currentUser);
   }
 
   myFacebookStatus() {
