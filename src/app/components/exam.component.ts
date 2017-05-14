@@ -10,21 +10,40 @@ import '../rxjs-operators';
 @Component({
   selector: 'exams-list',
   template: `
+  <div class="panel">
+    <div class="panel-heading">
+      <h3 class="panel-title">Lista de cursos</h3>
+    </div>
+    <div class="panel-body">
+      <div class="dataTables_wrapper form-inline dt-bootstrap no-footer">
+      <div class="row">
 
-  <table class="table table-bordered table-hover ">
-  <thead>
-    <tr>
-      <th class="text-center">#</th>
-      <th >Course</th>
-    </tr>
-  </thead>
-  <tbody>
-  <tr *ngFor="let course of courses;let index = index" (click)="onSelectCourse(course)">
-    <td class="text-center">{{index}}</td>
-    <td >{{course._id}}</td>
-  </tr>
-  </tbody>
-  </table>
+          <label> Search : <input #myInput type="input" placeholder="Course name..." [(ngModel)]="name" (input)="filterItem(myInput.value)"></label>
+
+        
+      </div>
+      <div class="row">
+      <table class="table table-bordered table-hover ">
+      <thead>
+      <tr>
+        <th class="text-center">#</th>
+        <th >Course</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let course of filteredCourses;let index = index" (click)="onSelectCourse(course)">
+        <td class="text-center">{{index}}</td>
+        <td >{{course._id}}</td>
+        </tr>
+      </tbody>
+      </table>
+      </div>
+      </div>
+    </div>
+  </div>
+
+
+
 
   <div *ngIf="selectedCourse">
   <table class="table table-bordered table-hover ">
@@ -98,6 +117,7 @@ export class ExamComponent implements OnInit {
   exams: Exam[];
   periods: Period[];
   courses: Course[];
+  filteredCourses: Course[];
 
   selectedExam: Exam;
   selectedCourse: Course;
@@ -141,10 +161,19 @@ export class ExamComponent implements OnInit {
       error => this.errorMessage = <any>error
     );
   }
+  getfilteredCourses(): void {
+    this.examService.getCourses().subscribe(
+      courses => this.filteredCourses = courses,
+      error => this.errorMessage = <any>error
+    );
+  }
 
 
   ngOnInit(): void {
     this.getCourses();
+    this.getfilteredCourses();
+
+
     this.selectedAnswer = [];
     this.selectedClass = [[], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], []];
   }
@@ -223,5 +252,17 @@ export class ExamComponent implements OnInit {
     this.myScrollContainer.nativeElement.scrollIntoView(true);
 
   }
+
+  assignCopy() {
+    this.filteredCourses = Object.assign([], this.courses);
+  }
+
+  filterItem(value) {
+    if (!value) this.assignCopy(); //when nothing has typed
+    this.filteredCourses = Object.assign([], this.courses).filter(
+      course => course._id.toLowerCase().indexOf(value.toLowerCase()) > -1
+    )
+  }
+
 
 }
