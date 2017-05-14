@@ -130,7 +130,7 @@ export class ExamComponent implements OnInit {
   badAnswers: number;
   gradeClass: string;
   gradeMessage: string;
-  @ViewChild('scrollMe') private myScrollContainer: ElementRef;
+  @ViewChild('scrollMe') myScrollContainer: ElementRef;
 
   errorMessage: string;
   mode = 'Observable';
