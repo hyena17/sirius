@@ -18,9 +18,9 @@ import '../rxjs-operators';
       <div class="dataTables_wrapper form-inline dt-bootstrap no-footer">
       <div class="row">
 
-          <label> Search : <input #myInput type="input" placeholder="Course name..." [(ngModel)]="name" (input)="filterItem(myInput.value)"></label>
+          <label> Search : <input #myInput type="input" placeholder="Course name..." (input)="filterItem(myInput.value)"></label>
 
-        
+
       </div>
       <div class="row">
       <table class="table table-bordered table-hover ">
@@ -130,7 +130,7 @@ export class ExamComponent implements OnInit {
   badAnswers: number;
   gradeClass: string;
   gradeMessage: string;
-  @ViewChild('scrollMe') private myScrollContainer: ElementRef;
+  @ViewChild('scrollMe') myScrollContainer: ElementRef;
 
   errorMessage: string;
   mode = 'Observable';
