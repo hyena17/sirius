@@ -97,14 +97,33 @@ import '../rxjs-operators';
       <div *ngFor="let image of question.imageUrl">
       <img id="image" class="img-fluid" alt="Responsive image" src="{{image}}" >
       </div>
-      </div>
+    </div>
 
+    <!--Pregunta Tipo 0: seleccionar una opcion-->
+    <div *ngIf="question.type==0">
     <div class="radio" *ngFor="let answer of question.options;let indexe=index">
       <div  [(ngClass)]="selectedClass[index][indexe]">
       <input class="magic-radio" type="radio"  id="{{index}}:{{indexe}}" [(ngModel)]="selectedAnswer[index]" value="{{answer}}" name="{{question.question}}">
         <label for="{{index}}:{{indexe}}">
         <strong>{{getLetter(indexe)}}) </strong> {{answer}}</label>
       </div>
+    </div>
+    </div>
+    <!--Pregunta tipo 1: correlacionar o v/f-->
+    <div *ngIf="question.type==1">
+    <div class="radio" *ngFor="let answer of question.options;let indexe=index">
+      <div  [(ngClass)]="selectedClass[index][indexe]">
+      <strong>{{getLetter(indexe)}}) </strong>
+      <input type="input"  id="{{index}}:{{indexe}}" [(ngModel)]="selectedAnswer[index]" value="{{answer}}" name="{{question.question}}">
+      <label for="{{index}}:{{indexe}}">
+       {{answer}}</label>
+      </div>
+    </div>
+    </div>
+
+    <!--Pregunta tipo 2: Escribir una respuesta-->
+    <div *ngIf="question.type==2" class="form-group" [(ngClass)]="selectedClass[index][0]">
+      <input type="text" class="form-control" [(ngModel)]="selectedAnswer[index]" placeholder="type your answer">
     </div>
   </div>
   </div>
@@ -220,21 +239,51 @@ export class ExamComponent implements OnInit {
     for (var question of this.selectedQuestions) {
       indice = 0;
       verdadero = 0;
-      for (var answer of question.options) {
-        if (question.answer == answer) {
-          verdadero = indice;
+      //Pregunta con opciones para que el alumno elija una respuesta
+      if (question.type == 0) {
+        for (var answer of question.options) {
+          if (question.answer == answer) {
+            verdadero = indice;
+          }
+          if (question.answer == this.selectedAnswer[contador] && this.selectedAnswer[contador] == answer) {
+            this.selectedClass[contador][indice] = "text-success";
+            this.goodAnswers = this.goodAnswers + question.points;
+          } else if (answer == this.selectedAnswer[contador]) {
+            this.selectedClass[contador][indice] = "text-danger";
+            this.badAnswers = this.badAnswers + question.points;
+          }
+          indice++;
         }
-        if (question.answer == this.selectedAnswer[contador] && this.selectedAnswer[contador] == answer) {
-          this.selectedClass[contador][indice] = "text-success";
+        this.selectedClass[contador][verdadero] = "text-success";
+      }
+
+      if (question.type == 1) {
+        for (var answer of question.options) {
+          if (question.answer == answer) {
+            verdadero = indice;
+          }
+          if (question.answer == this.selectedAnswer[contador] && this.selectedAnswer[contador] == answer) {
+            this.selectedClass[contador][indice] = "text-success";
+            this.goodAnswers = this.goodAnswers + question.points;
+          } else if (answer == this.selectedAnswer[contador]) {
+            this.selectedClass[contador][indice] = "text-danger";
+            this.badAnswers = this.badAnswers + question.points;
+          }
+          indice++;
+        }
+      }
+
+      //Pregunta con input para que el alumno escriba su respuesta
+      //para ponerlo rojo o verde asumimos que el input siempre sera la primera opcion
+      if (question.type == 2) {
+        if (question.answer.toLowerCase() == this.selectedAnswer[contador].toLowerCase()) {
+          this.selectedClass[contador][0] = "has-success";
           this.goodAnswers = this.goodAnswers + question.points;
-        } else if (answer == this.selectedAnswer[contador]) {
-          this.selectedClass[contador][indice] = "text-danger";
+        } else {
+          this.selectedClass[contador][0] = "has-error";
           this.badAnswers = this.badAnswers + question.points;
         }
-
-        indice++;
       }
-      this.selectedClass[contador][verdadero] = "text-success";
       contador++;
     }
 
