@@ -27,13 +27,17 @@ import '../rxjs-operators';
       <thead>
       <tr>
         <th class="text-center">#</th>
+        <th >Code</th>
         <th >Course</th>
+        <th >University</th>
         </tr>
       </thead>
       <tbody>
         <tr *ngFor="let course of filteredCourses;let index = index" (click)="onSelectCourse(course)">
         <td class="text-center">{{index}}</td>
+        <td >{{course.code}}</td>
         <td >{{course._id}}</td>
+        <td >{{course.university}}</td>
         </tr>
       </tbody>
       </table>
