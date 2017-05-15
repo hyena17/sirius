@@ -81,7 +81,7 @@ import '../rxjs-operators';
   <div [(ngClass)]="gradeClass">
   <div  align="center" class="panel-heading">
                  <ul>
-                 <label class="panel-title">{{gradeMessage}} {{goodAnswers}}</label><br/>
+                 <label class="panel-title">{{gradeMessage}} {{goodAnswers}} de {{gradeTotal}}</label><br/>
                  </ul>
   </div>
   </div>
@@ -134,6 +134,8 @@ export class ExamComponent implements OnInit {
   badAnswers: number;
   gradeClass: string;
   gradeMessage: string;
+  gradeTotal: number;
+
   @ViewChild('scrollMe') myScrollContainer: ElementRef;
 
   errorMessage: string;
@@ -191,6 +193,7 @@ export class ExamComponent implements OnInit {
     this.badAnswers = 0;
     this.gradeClass = undefined;
     this.gradeMessage = undefined;
+    this.gradeTotal = 0;
   }
   onSelectCourse(course: Course): void {
     this.selectedCourse = course;
@@ -223,10 +226,10 @@ export class ExamComponent implements OnInit {
         }
         if (question.answer == this.selectedAnswer[contador] && this.selectedAnswer[contador] == answer) {
           this.selectedClass[contador][indice] = "text-success";
-          this.goodAnswers++;
+          this.goodAnswers = this.goodAnswers + question.points;
         } else if (answer == this.selectedAnswer[contador]) {
           this.selectedClass[contador][indice] = "text-danger";
-          this.badAnswers++;
+          this.badAnswers = this.badAnswers + question.points;
         }
 
         indice++;
@@ -235,7 +238,11 @@ export class ExamComponent implements OnInit {
       contador++;
     }
 
+
+
+
     var note = this.goodAnswers / (this.goodAnswers + this.badAnswers) * 100;
+    this.gradeTotal = (this.goodAnswers + this.badAnswers);
 
     if (note >= 75) {
       this.gradeClass = "panel panel-colorful panel-success";
