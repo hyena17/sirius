@@ -5,5 +5,5 @@ export class Question {
   answer: string;
   image: boolean;
   imageUrl: Array<string>;
-
+  points: number;
 }

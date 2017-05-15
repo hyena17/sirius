@@ -27,13 +27,17 @@ import '../rxjs-operators';
       <thead>
       <tr>
         <th class="text-center">#</th>
+        <th >Code</th>
         <th >Course</th>
+        <th >University</th>
         </tr>
       </thead>
       <tbody>
         <tr *ngFor="let course of filteredCourses;let index = index" (click)="onSelectCourse(course)">
         <td class="text-center">{{index}}</td>
+        <td >{{course.code}}</td>
         <td >{{course._id}}</td>
+        <td >{{course.university}}</td>
         </tr>
       </tbody>
       </table>
@@ -77,7 +81,7 @@ import '../rxjs-operators';
   <div [(ngClass)]="gradeClass">
   <div  align="center" class="panel-heading">
                  <ul>
-                 <label class="panel-title">{{gradeMessage}} {{goodAnswers}}</label><br/>
+                 <label class="panel-title">{{gradeMessage}} {{goodAnswers}} de {{gradeTotal}}</label><br/>
                  </ul>
   </div>
   </div>
@@ -93,14 +97,33 @@ import '../rxjs-operators';
       <div *ngFor="let image of question.imageUrl">
       <img id="image" class="img-fluid" alt="Responsive image" src="{{image}}" >
       </div>
-      </div>
+    </div>
 
+    <!--Pregunta Tipo 0: seleccionar una opcion-->
+    <div *ngIf="question.type==0">
     <div class="radio" *ngFor="let answer of question.options;let indexe=index">
       <div  [(ngClass)]="selectedClass[index][indexe]">
       <input class="magic-radio" type="radio"  id="{{index}}:{{indexe}}" [(ngModel)]="selectedAnswer[index]" value="{{answer}}" name="{{question.question}}">
         <label for="{{index}}:{{indexe}}">
         <strong>{{getLetter(indexe)}}) </strong> {{answer}}</label>
       </div>
+    </div>
+    </div>
+    <!--Pregunta tipo 1: correlacionar o v/f-->
+    <div *ngIf="question.type==1">
+    <div class="radio" *ngFor="let answer of question.options;let indexe=index">
+      <div  [(ngClass)]="selectedClass[index][indexe]">
+      <strong>{{getLetter(indexe)}}) </strong>
+      <input type="input"  id="{{index}}:{{indexe}}" [(ngModel)]="selectedAnswer[index]" value="{{answer}}" name="{{question.question}}">
+      <label for="{{index}}:{{indexe}}">
+       {{answer}}</label>
+      </div>
+    </div>
+    </div>
+
+    <!--Pregunta tipo 2: Escribir una respuesta-->
+    <div *ngIf="question.type==2" class="form-group" [(ngClass)]="selectedClass[index][0]">
+      <input type="text" class="form-control" [(ngModel)]="selectedAnswer[index]" placeholder="type your answer">
     </div>
   </div>
   </div>
@@ -130,6 +153,8 @@ export class ExamComponent implements OnInit {
   badAnswers: number;
   gradeClass: string;
   gradeMessage: string;
+  gradeTotal: number;
+
   @ViewChild('scrollMe') myScrollContainer: ElementRef;
 
   errorMessage: string;
@@ -187,6 +212,7 @@ export class ExamComponent implements OnInit {
     this.badAnswers = 0;
     this.gradeClass = undefined;
     this.gradeMessage = undefined;
+    this.gradeTotal = 0;
   }
   onSelectCourse(course: Course): void {
     this.selectedCourse = course;
@@ -213,25 +239,59 @@ export class ExamComponent implements OnInit {
     for (var question of this.selectedQuestions) {
       indice = 0;
       verdadero = 0;
-      for (var answer of question.options) {
-        if (question.answer == answer) {
-          verdadero = indice;
+      //Pregunta con opciones para que el alumno elija una respuesta
+      if (question.type == 0) {
+        for (var answer of question.options) {
+          if (question.answer == answer) {
+            verdadero = indice;
+          }
+          if (question.answer == this.selectedAnswer[contador] && this.selectedAnswer[contador] == answer) {
+            this.selectedClass[contador][indice] = "text-success";
+            this.goodAnswers = this.goodAnswers + question.points;
+          } else if (answer == this.selectedAnswer[contador]) {
+            this.selectedClass[contador][indice] = "text-danger";
+            this.badAnswers = this.badAnswers + question.points;
+          }
+          indice++;
         }
-        if (question.answer == this.selectedAnswer[contador] && this.selectedAnswer[contador] == answer) {
-          this.selectedClass[contador][indice] = "text-success";
-          this.goodAnswers++;
-        } else if (answer == this.selectedAnswer[contador]) {
-          this.selectedClass[contador][indice] = "text-danger";
-          this.badAnswers++;
-        }
-
-        indice++;
+        this.selectedClass[contador][verdadero] = "text-success";
       }
-      this.selectedClass[contador][verdadero] = "text-success";
+
+      if (question.type == 1) {
+        for (var answer of question.options) {
+          if (question.answer == answer) {
+            verdadero = indice;
+          }
+          if (question.answer == this.selectedAnswer[contador] && this.selectedAnswer[contador] == answer) {
+            this.selectedClass[contador][indice] = "text-success";
+            this.goodAnswers = this.goodAnswers + question.points;
+          } else if (answer == this.selectedAnswer[contador]) {
+            this.selectedClass[contador][indice] = "text-danger";
+            this.badAnswers = this.badAnswers + question.points;
+          }
+          indice++;
+        }
+      }
+
+      //Pregunta con input para que el alumno escriba su respuesta
+      //para ponerlo rojo o verde asumimos que el input siempre sera la primera opcion
+      if (question.type == 2) {
+        if (question.answer.toLowerCase() == this.selectedAnswer[contador].toLowerCase()) {
+          this.selectedClass[contador][0] = "has-success";
+          this.goodAnswers = this.goodAnswers + question.points;
+        } else {
+          this.selectedClass[contador][0] = "has-error";
+          this.badAnswers = this.badAnswers + question.points;
+        }
+      }
       contador++;
     }
 
+
+
+
     var note = this.goodAnswers / (this.goodAnswers + this.badAnswers) * 100;
+    this.gradeTotal = (this.goodAnswers + this.badAnswers);
 
     if (note >= 75) {
       this.gradeClass = "panel panel-colorful panel-success";
