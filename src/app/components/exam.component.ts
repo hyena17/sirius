@@ -114,7 +114,7 @@ import '../rxjs-operators';
     <div class="radio" *ngFor="let answer of question.options;let indexe=index">
       <div  [(ngClass)]="selectedClass[index][indexe]">
       <strong>{{getLetter(indexe)}}) </strong>
-      <input type="input"  id="{{index}}:{{indexe}}" [(ngModel)]="selectedAnswer[index]" value="{{answer}}" name="{{question.question}}">
+      <input type="input"  id="{{index}}:{{indexe}}" [(ngModel)]="selectedArrayAnswers[index][indexe]" value="{{answer}}" name="{{question.question}}">
       <label for="{{index}}:{{indexe}}">
        {{answer}}</label>
       </div>
@@ -147,6 +147,7 @@ export class ExamComponent implements OnInit {
   selectedQuestions: Question[];
 
   selectedAnswer: string[];
+  selectedArrayAnswers: string[][];
   selectedClass: string[][];
 
   goodAnswers: number;
@@ -200,6 +201,7 @@ export class ExamComponent implements OnInit {
 
 
     this.selectedAnswer = [];
+    this.selectedArrayAnswers = [[], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], []];
     this.selectedClass = [[], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], []];
   }
 
@@ -207,6 +209,7 @@ export class ExamComponent implements OnInit {
     this.selectedExam = exam;
     this.selectedQuestions = exam.questions;
     this.selectedAnswer = [];
+    this.selectedArrayAnswers = [[], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], []];
     this.selectedClass = [[], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], []];
     this.goodAnswers = 0;
     this.badAnswers = 0;
@@ -219,6 +222,7 @@ export class ExamComponent implements OnInit {
     this.selectedExam = null;
     this.getExamsByCourse(this.selectedCourse._id);
     this.selectedAnswer = [];
+    this.selectedArrayAnswers = [[], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], []];
     this.selectedClass = [[], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], []];
     this.goodAnswers = 0;
     this.badAnswers = 0;
@@ -258,19 +262,18 @@ export class ExamComponent implements OnInit {
       }
 
       if (question.type == 1) {
-        for (var answer of question.options) {
-          if (question.answer == answer) {
-            verdadero = indice;
+        let indiceQuestion1 = 0;
+        for (var option of question.options) {
+          if (question.answers[indiceQuestion1].toLowerCase() == this.selectedArrayAnswers[contador][indiceQuestion1].toLowerCase()) {
+            this.selectedClass[contador][indiceQuestion1] = "text-success";
+            this.goodAnswers = this.goodAnswers + (question.points / question.answers.length);
+          } else {
+            this.selectedClass[contador][indiceQuestion1] = "text-danger";
+            this.badAnswers = this.badAnswers + (question.points / question.answers.length);
           }
-          if (question.answer == this.selectedAnswer[contador] && this.selectedAnswer[contador] == answer) {
-            this.selectedClass[contador][indice] = "text-success";
-            this.goodAnswers = this.goodAnswers + question.points;
-          } else if (answer == this.selectedAnswer[contador]) {
-            this.selectedClass[contador][indice] = "text-danger";
-            this.badAnswers = this.badAnswers + question.points;
-          }
-          indice++;
+          indiceQuestion1++;
         }
+        indice++;
       }
 
       //Pregunta con input para que el alumno escriba su respuesta
@@ -312,7 +315,6 @@ export class ExamComponent implements OnInit {
     this.myScrollContainer.nativeElement.scrollIntoView(true);
 
   }
-
   assignCopy() {
     this.filteredCourses = Object.assign([], this.courses);
   }
@@ -323,6 +325,4 @@ export class ExamComponent implements OnInit {
       course => course._id.toLowerCase().indexOf(value.toLowerCase()) > -1
     )
   }
-
-
 }
