@@ -90,9 +90,13 @@ import '../rxjs-operators';
 
   <div class="form-group panel panel-bordered panel-mint" *ngFor="let question of selectedQuestions;let index = index">
   <div class="panel-heading">
-  <h3 class="panel-title"><strong>{{index+1}}) </strong>{{question.question}}</h3>
+  <h3 class="panel-title"><strong>Pregunta {{index+1}}: </strong></h3>
   </div>
   <div class="panel-body">
+    <div class="angular-with-newlines" >
+      {{question.question}}
+    </div>
+    <br>
     <div *ngIf="question.image" >
       <div *ngFor="let image of question.imageUrl">
       <img id="image" class="img-fluid" alt="Responsive image" src="{{image}}" >
