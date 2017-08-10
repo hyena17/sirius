@@ -8,7 +8,7 @@ import { ExamService } from '../services/exam.service';
 import '../rxjs-operators';
 
 @Component({
-  selector: 'exams-list',
+  selector: 'exams-list1',
   template: `
   <div class="panel">
     <div class="panel-heading">
@@ -17,13 +17,10 @@ import '../rxjs-operators';
     <div class="panel-body">
       <div class="dataTables_wrapper form-inline dt-bootstrap no-footer">
       <div class="row">
-
           <label> Search : <input #myInput type="input" placeholder="Course name..." (input)="filterItem(myInput.value)"></label>
-
-
       </div>
       <div class="row">
-      <table class="table table-bordered table-hover ">
+      <table class="table table-bordered table-hover table-striped">
       <thead>
       <tr>
         <th class="text-center">#</th>
@@ -33,11 +30,11 @@ import '../rxjs-operators';
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let course of filteredCourses;let index = index" (click)="onSelectCourse(course)">
-        <td class="text-center">{{index}}</td>
-        <td >{{course.code}}</td>
-        <td >{{course._id}}</td>
-        <td >{{course.university}}</td>
+        <tr *ngFor="let course of filteredCourses;let index = index" (click)="onSelectCourse(course)" class="index">
+          <td class="text-center">{{index}}</td>
+          <td class="text-center">{{course.code}}</td>
+          <td >{{course._id}}</td>
+          <td class="text-center">{{course.university}}</td>
         </tr>
       </tbody>
       </table>
@@ -59,15 +56,19 @@ import '../rxjs-operators';
     </tr>
   </thead>
   <tbody>
-  <tr *ngFor="let exam of exams;let index = index" (click)="onSelect(exam)">
-    <td class="text-center">{{index}}</td>
-    <td >{{exam.period}}</td>
-    <td >{{exam.type}}</td>
-  </tr>
+    <tr *ngFor="let exam of exams;let index = index" (click)="onSelect(exam)">
+      <td class="text-center">{{index}}</td>
+      <td>{{exam.period}}</td>
+      <td>{{exam.type}}</td>
+    </tr>
   </tbody>
   </table>
   </div>
 
+
+
+  <!-- TITTLE OF EXAMEN -->
+  <!-- @TODO move to another component -->
   <div  *ngIf="selectedExam"  #scrollMe>
 
   <div class="panel panel-colorful panel-primary">
@@ -87,7 +88,8 @@ import '../rxjs-operators';
   </div>
   </div>
 
-
+  <!-- DISPLAYING QUESTIONS FOR NEW JSON-->
+  <div *ngIf="selectedExam.new!==undefined">
   <div class="form-group panel panel-bordered panel-mint" *ngFor="let question of selectedQuestions;let index = index">
   <div class="panel-heading">
   <h3 class="panel-title"><strong>Pregunta {{index+1}}: </strong></h3>
@@ -103,7 +105,6 @@ import '../rxjs-operators';
       </div>
     </div>
 
-    <!--Pregunta Tipo 0: seleccionar una opcion-->
     <div *ngIf="question.type==0">
     <div class="radio" *ngFor="let answer of question.options;let indexe=index">
       <div  [(ngClass)]="selectedClass[index][indexe]">
@@ -113,7 +114,7 @@ import '../rxjs-operators';
       </div>
     </div>
     </div>
-    <!--Pregunta tipo 1: correlacionar o v/f-->
+
     <div *ngIf="question.type==1">
     <div class="radio" *ngFor="let answer of question.options;let indexe=index">
       <div  [(ngClass)]="selectedClass[index][indexe]">
@@ -125,7 +126,6 @@ import '../rxjs-operators';
     </div>
     </div>
 
-    <!--Pregunta tipo 2: Escribir una respuesta-->
     <div *ngIf="question.type==2" class="form-group" [(ngClass)]="selectedClass[index][0]">
       <input type="text" class="form-control" [(ngModel)]="selectedAnswer[index]" placeholder="type your answer">
     </div>
@@ -136,6 +136,62 @@ import '../rxjs-operators';
   </div>
 
   </div>
+
+
+
+
+  <!-- DISPLAYING QUESTIONS FOR OLD JSON-->
+  <div *ngIf="selectedExam.new==undefined">
+  <div class="form-group panel panel-bordered panel-mint" *ngFor="let question of selectedQuestions;let index = index">
+  <div class="panel-heading">
+  <h3 class="panel-title"><strong>Pregunta {{index+1}}: </strong></h3>
+  </div>
+  <div class="panel-body">
+    <div class="angular-with-newlines" >
+      {{question.question}}
+    </div>
+    <br>
+    <div *ngIf="question.image" >
+      <div *ngFor="let image of question.imageUrl">
+      <img id="image" class="img-fluid" alt="Responsive image" src="{{image}}" >
+      </div>
+    </div>
+
+    <div *ngIf="question.type==0">
+    <div class="radio" *ngFor="let answer of question.options;let indexe=index">
+      <div  [(ngClass)]="selectedClass[index][indexe]">
+      <input class="magic-radio" type="radio"  id="{{index}}:{{indexe}}" [(ngModel)]="selectedAnswer[index]" value="{{answer}}" name="{{question.question}}">
+        <label for="{{index}}:{{indexe}}">
+        <strong>{{getLetter(indexe)}}) </strong> {{answer}}</label>
+      </div>
+    </div>
+    </div>
+
+    <div *ngIf="question.type==1">
+    <div class="radio" *ngFor="let answer of question.options;let indexe=index">
+      <div  [(ngClass)]="selectedClass[index][indexe]">
+      <strong>{{getLetter(indexe)}}) </strong>
+      <input type="input"  id="{{index}}:{{indexe}}" [(ngModel)]="selectedArrayAnswers[index][indexe]" value="{{answer}}" name="{{question.question}}">
+      <label for="{{index}}:{{indexe}}">
+       {{answer}}</label>
+      </div>
+    </div>
+    </div>
+
+    <div *ngIf="question.type==2" class="form-group" [(ngClass)]="selectedClass[index][0]">
+      <input type="text" class="form-control" [(ngModel)]="selectedAnswer[index]" placeholder="type your answer">
+    </div>
+  </div>
+  </div>
+  <div  align="text-right">
+    <button class="btn btn-success"  (click)="evaluateExam();">Submit</button>
+  </div>
+
+  </div>
+  </div>
+
+
+
         `,
   providers: [ExamService]
 })
@@ -211,7 +267,11 @@ export class ExamComponent implements OnInit {
 
   onSelect(exam: Exam): void {
     this.selectedExam = exam;
-    this.selectedQuestions = exam.questions;
+    if (exam.new == false) {
+      this.selectedQuestions = exam.questions;
+    } else {
+      this.selectedQuestions = exam.questions;
+    }
     this.selectedAnswer = [];
     this.selectedArrayAnswers = [[], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], []];
     this.selectedClass = [[], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], []];

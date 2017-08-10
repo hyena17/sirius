@@ -5,17 +5,23 @@ import { RouterModule }   from '@angular/router';
 import { HttpModule, JsonpModule } from '@angular/http';
 
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import {DataTableModule} from "angular2-datatable";
 
 import { AppComponent }   from './app.component';
-import { ExamComponent} from './components/exam.component';
+import { BaseComponent} from './components/base.component';
+import { CourseComponent} from './components/course.component';
+import { ExamNewComponent} from './components/examNew.component';
+import { QuestionComponent} from './components/question.component';
+import { QuestionContainerComponent } from './components/questionContainer.component';
 
 
 @NgModule({
-  imports: [NgbModule, BrowserModule, FormsModule, HttpModule, JsonpModule,
+  imports: [NgbModule, DataTableModule, BrowserModule, FormsModule, HttpModule, JsonpModule,
     RouterModule.forRoot([
       {
         path: 'exam',
-        component: ExamComponent
+        //component: ExamComponent
+        component: BaseComponent
       },
       {
         path: '',
@@ -23,7 +29,7 @@ import { ExamComponent} from './components/exam.component';
         pathMatch: 'full'
       },
     ])],
-  declarations: [AppComponent, ExamComponent],
+  declarations: [AppComponent, ExamNewComponent, QuestionComponent, QuestionContainerComponent, CourseComponent, BaseComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule {
