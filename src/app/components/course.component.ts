@@ -32,7 +32,7 @@ import '../rxjs-operators';
 
       <br/>
       <div class="row  table-responsive">
-        <table class="table table-bordered table-hover table-striped"  [mfData]="filteredCourses" #mf="mfDataTable" [mfRowsOnPage]="5">
+        <table class="table table-bordered table-hover table-striped"  [mfData]="filteredCourses" #mf="mfDataTable" [mfRowsOnPage]="6">
           <thead>
             <tr>
               <th class="text-center col-md-1">Codigo</th>

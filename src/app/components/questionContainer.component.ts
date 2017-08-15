@@ -109,6 +109,16 @@ export class QuestionContainerComponent implements OnInit {
             question.partialAnswer[statementIndex] = "";
           }
 
+          if (question.type == 0) {
+            if (question.answerSelected.toLowerCase() == question.answer.toLowerCase()) {
+              //this.selectedClass[contador][0] = "has-success";
+              this.goodAnswers = this.goodAnswers + (question.points / question.statements.length);
+            } else {
+              //this.selectedClass[contador][0] = "has-error";
+              this.badAnswers = this.badAnswers + (question.points / question.statements.length);
+            }
+          }
+
           if (question.type == 2) {
             if (question.answers[statementIndex].toLowerCase() == question.partialAnswer[statementIndex].toLowerCase()) {
               //this.selectedClass[contador][0] = "has-success";

@@ -12,7 +12,7 @@ var forms_1 = require("@angular/forms");
 var router_1 = require("@angular/router");
 var http_1 = require("@angular/http");
 var ng_bootstrap_1 = require("@ng-bootstrap/ng-bootstrap");
-var ng2_completer_1 = require("ng2-completer");
+
 var app_component_1 = require("./app.component");
 var writer_details_component_1 = require("./components/writer-details.component");
 var writer_list_component_1 = require("./components/writer-list.component");

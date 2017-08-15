@@ -108,7 +108,7 @@ import '../rxjs-operators';
     <div *ngIf="question.type==0">
     <div class="radio" *ngFor="let answer of question.options;let indexe=index">
       <div  [(ngClass)]="selectedClass[index][indexe]">
-      <input class="magic-radio" type="radio"  id="{{index}}:{{indexe}}" [(ngModel)]="selectedAnswer[index]" value="{{answer}}" name="{{question.question}}">
+      <input class="magic-radio" type="radio" [(ngModel)]="selectedAnswer[index]" value="{{answer}}" name="{{question.question}}">
         <label for="{{index}}:{{indexe}}">
         <strong>{{getLetter(indexe)}}) </strong> {{answer}}</label>
       </div>

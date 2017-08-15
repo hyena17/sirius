@@ -21,7 +21,7 @@ import '../rxjs-operators';
     <div class="panel-body">
       <div class="dataTables_wrapper form-inline dt-bootstrap no-footer">
       <div class="row table-responsive">
-        <table class="table table-bordered table-hover table-striped" [mfData]="exams" #mf="mfDataTable" [mfRowsOnPage]="5">
+        <table class="table table-bordered table-hover table-striped" [mfData]="exams" #mf="mfDataTable" [mfRowsOnPage]="6">
           <thead>
             <tr>
               <th class="text-center min-width col-md-0">#</th>

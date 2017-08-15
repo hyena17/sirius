@@ -23,6 +23,16 @@ import '../rxjs-operators';
     </div>
   </div>
 
+    <div *ngIf="question.type==0" >
+      <md-radio-group  class="example-radio-group" [(ngModel)]="question.answerSelected" >
+        <div  *ngFor="let answer of question.options;let indexe=index" >
+          <md-radio-button class="example-radio-button"[value]="answer">
+            <strong>{{getLetter(indexe)}}) </strong> {{answer}}
+          </md-radio-button>
+        </div>
+      </md-radio-group>
+    </div>
+
     <div *ngIf="question.type==2" >
       <div *ngFor="let statement of question.statements; let indexStatement = index">
         <label class="control-label" [innerHTML]="statement"></label>
@@ -56,10 +66,8 @@ import '../rxjs-operators';
 })
 
 export class QuestionComponent implements OnInit {
-
   @Input() question: Question;
   @Input() indexQuestion: number;
-
 
   errorMessage: string;
 
@@ -73,5 +81,6 @@ export class QuestionComponent implements OnInit {
   getLetter(index): string {
     return String.fromCharCode(97 + index);
   }
+
 
 }

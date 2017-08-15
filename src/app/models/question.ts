@@ -7,6 +7,7 @@ export class Question {
   imageUrl: Array<string>;
   points: number;
   answers: Array<string>;
+  answerSelected: string;
   partialAnswer: Array<string>;
   fullPoints: boolean;
   statements: Array<string>;
