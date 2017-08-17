@@ -14,7 +14,7 @@ import '../rxjs-operators';
   template: `
   <div *ngIf="question">
 
-  <label>{{getLetter(indexQuestion)}})</label>
+  <label *ngIf="question.statements!==undefined" >{{getLetter(indexQuestion)}})</label>
   <label [innerHTML]="question.question"></label>
   <br>
   <div *ngIf="question.imageUrl" >
