@@ -31,7 +31,7 @@ import '../rxjs-operators';
           </thead>
           <tbody>
             <tr *ngFor="let exam of mf.data;let index=index" (click)="onSelectExam(exam)">
-              <td class="text-center col-md-0">{{index}}</td>
+              <td class="text-center col-md-0">{{index+1}}</td>
               <td class="text-center col-md-0">{{exam.period}}</td>
               <td class="text-center col-md-3">{{exam.type}}</td>
             </tr>
