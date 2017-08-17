@@ -15,7 +15,8 @@ import '../rxjs-operators';
   <div *ngIf="question">
 
   <label *ngIf="question.statements!==undefined" >{{getLetter(indexQuestion)}})</label>
-  <label [innerHTML]="question.question"></label>
+  <!--<div [innerHTML]="question.question"></div>-->
+  <div [MathJax]="question.question">{{question.question}}</div>
   <br>
   <div *ngIf="question.imageUrl" >
     <div *ngFor="let image of question.imageUrl">

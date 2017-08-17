@@ -15,6 +15,8 @@ import { ExamNewComponent} from './components/examNew.component';
 import { QuestionComponent} from './components/question.component';
 import { QuestionContainerComponent } from './components/questionContainer.component';
 
+import {MathJaxDirective} from './components/mathjax.directive';
+
 
 @NgModule({
   imports: [NgbModule, DataTableModule, BrowserModule, FormsModule, HttpModule, JsonpModule, MdRadioModule,
@@ -30,7 +32,8 @@ import { QuestionContainerComponent } from './components/questionContainer.compo
         pathMatch: 'full'
       },
     ])],
-  declarations: [AppComponent, ExamNewComponent, QuestionComponent, QuestionContainerComponent, CourseComponent, BaseComponent],
+  exports: [MathJaxDirective],
+  declarations: [AppComponent, ExamNewComponent, QuestionComponent, QuestionContainerComponent, CourseComponent, BaseComponent, MathJaxDirective],
   bootstrap: [AppComponent]
 })
 export class AppModule {
