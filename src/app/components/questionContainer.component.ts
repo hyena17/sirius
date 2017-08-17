@@ -102,56 +102,76 @@ export class QuestionContainerComponent implements OnInit {
       verdadero = 0;
       for (var question of questionContainer.questions) {
         statementIndex = 0;
-        for (var statement of question.statements) {
-          //Pregunta con input para que el alumno escriba su respuesta
-          //para ponerlo rojo o verde asumimos que el input siempre sera la primera opcion
-          if (question.partialAnswer[statementIndex] == undefined) {
-            question.partialAnswer[statementIndex] = "";
+        if (question.statements == undefined) {
+          question.statements = [""];
+          this.evaluateQuestion(question, statementIndex);
+        } else {
+          for (var statement of question.statements) {
+            //Pregunta con input para que el alumno escriba su respuesta
+            //para ponerlo rojo o verde asumimos que el input siempre sera la primera opcion
+            this.evaluateQuestion(question, statementIndex);
+            statementIndex++;
           }
-
-          if (question.type == 0) {
-            if (question.answerSelected.toLowerCase() == question.answer.toLowerCase()) {
-              //this.selectedClass[contador][0] = "has-success";
-              this.goodAnswers = this.goodAnswers + (question.points / question.statements.length);
-            } else {
-              //this.selectedClass[contador][0] = "has-error";
-              this.badAnswers = this.badAnswers + (question.points / question.statements.length);
-            }
-          }
-
-          if (question.type == 2) {
-            if (question.answers[statementIndex].toLowerCase() == question.partialAnswer[statementIndex].toLowerCase()) {
-              //this.selectedClass[contador][0] = "has-success";
-              this.goodAnswers = this.goodAnswers + (question.points / question.statements.length);
-            } else {
-              //this.selectedClass[contador][0] = "has-error";
-              this.badAnswers = this.badAnswers + (question.points / question.statements.length);
-            }
-          }
-          if (question.type == 5) {
-            var temporatido = 0;
-
-            for (let indexParcial = 0; indexParcial < question.partialAnswerFormatted[statementIndex].length; indexParcial++) {
-
-
-              if (question.partialAnswerFormatted[statementIndex][indexParcial] != undefined) {
-                if (question.answersPartials[statementIndex][temporatido].toLowerCase() == question.partialAnswerFormatted[statementIndex][indexParcial].toLowerCase()) {
-                  //this.selectedClass[contador][0] = "has-success";
-                  this.goodAnswers = this.goodAnswers + ((question.points / question.statements.length) / question.answersPartials.length);
-                } else {
-                  //this.selectedClass[contador][0] = "has-error";
-                  this.badAnswers = this.badAnswers + (question.points / question.statements.length);
-                }
-                temporatido++;
-              }
-            }
-          }
-          statementIndex++;
         }
       }
       contador++;
     }
+    this.displayGrade();
 
+  }
+
+  evaluateQuestion(question: Question, statementIndex: number): void {
+
+
+    if (question.partialAnswer[statementIndex] == undefined) {
+      question.partialAnswer[statementIndex] = "";
+    }
+
+    if (question.type == 0) {
+      if (question.answerSelected == undefined) {
+        question.answerSelected = "";
+      }
+
+
+      if (question.answerSelected.toLowerCase() == question.answer.toLowerCase()) {
+        //this.selectedClass[contador][0] = "has-success";
+        this.goodAnswers = this.goodAnswers + (question.points / question.statements.length);
+      } else {
+        //this.selectedClass[contador][0] = "has-error";
+        this.badAnswers = this.badAnswers + (question.points / question.statements.length);
+      }
+    }
+
+    if (question.type == 2) {
+      if (question.answers[statementIndex].toLowerCase() == question.partialAnswer[statementIndex].toLowerCase()) {
+        //this.selectedClass[contador][0] = "has-success";
+        this.goodAnswers = this.goodAnswers + (question.points / question.statements.length);
+      } else {
+        //this.selectedClass[contador][0] = "has-error";
+        this.badAnswers = this.badAnswers + (question.points / question.statements.length);
+      }
+    }
+    if (question.type == 5) {
+      var temporatido = 0;
+
+      for (let indexParcial = 0; indexParcial < question.partialAnswerFormatted[statementIndex].length; indexParcial++) {
+
+
+        if (question.partialAnswerFormatted[statementIndex][indexParcial] != undefined) {
+          if (question.answersPartials[statementIndex][temporatido].toLowerCase() == question.partialAnswerFormatted[statementIndex][indexParcial].toLowerCase()) {
+            //this.selectedClass[contador][0] = "has-success";
+            this.goodAnswers = this.goodAnswers + ((question.points / question.statements.length) / question.answersPartials.length);
+          } else {
+            //this.selectedClass[contador][0] = "has-error";
+            this.badAnswers = this.badAnswers + (question.points / question.statements.length);
+          }
+          temporatido++;
+        }
+      }
+    }
+  }
+
+  displayGrade(): void {
     var note = this.goodAnswers / (this.goodAnswers + this.badAnswers) * 100;
     this.gradeTotal = (this.goodAnswers + this.badAnswers);
 
@@ -173,6 +193,5 @@ export class QuestionContainerComponent implements OnInit {
 
     this.myScrollContainer.nativeElement.scrollIntoView(true);
 
-    console.log(this.goodAnswers);
   }
 }
