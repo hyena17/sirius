@@ -14,10 +14,22 @@ import '../rxjs-operators';
   template: `
   <div *ngIf="question">
 
-  <label *ngIf="question.statements!==undefined" >{{getLetter(indexQuestion)}})</label>
-  <!--<div [innerHTML]="question.question"></div>-->
-  <div [MathJax]="question.question">{{question.question}}</div>
+  <div class="row container">
+    <div class="col-md-7">
+      <div class="row">
+        <div class="col-md-1">
+          <label *ngIf="question.statements!==undefined " >{{getLetter(indexQuestion)}})</label>
+        </div>
+        <div class="col-md-11">
+          <label [MathJax]="question.question">{{question.question}}</label>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-5">
+    </div>
+  </div>
   <br>
+
   <div *ngIf="question.imageUrl" >
     <div *ngFor="let image of question.imageUrl">
       <img id="image" class="img-fluid" alt="Responsive image" src="{{image}}" >
@@ -34,11 +46,17 @@ import '../rxjs-operators';
       </md-radio-group>
     </div>
 
-    <div *ngIf="question.type==2" >
-      <div *ngFor="let statement of question.statements; let indexStatement = index">
-        <label class="control-label" [innerHTML]="statement"></label>
-        <input type="text" class="form-control" name="question.{{indexStatement}}.answer" [(ngModel)]="question.partialAnswer[indexStatement]">
+    <div *ngIf="question.type==2">
+      <div *ngIf="question.statements===undefined || question.statements.length==0">
+        <input type="text" class="form-control" [(ngModel)]="question.partialAnswer[0]">
         <br>
+      </div>
+      <div *ngIf="question.statements.length > 0">
+        <div *ngFor="let statement of question.statements; let indexStatement = index">
+          <label class="control-label" [innerHTML]="statement"></label>
+          <input type="text" class="form-control" name="question.{{indexStatement}}.answer" [(ngModel)]="question.partialAnswer[indexStatement]">
+          <br>
+        </div>
       </div>
     </div>
 
