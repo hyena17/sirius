@@ -11,7 +11,7 @@ import {DataTableModule} from "angular2-datatable";
 import { AppComponent }   from './app.component';
 import { BaseComponent} from './components/base.component';
 import { CourseComponent} from './components/course.component';
-import { ExamNewComponent} from './components/examNew.component';
+import { ExamComponent} from './components/exam.component';
 import { QuestionComponent} from './components/question.component';
 import { QuestionContainerComponent } from './components/questionContainer.component';
 
@@ -33,7 +33,7 @@ import {MathJaxDirective} from './components/mathjax.directive';
       },
     ])],
   exports: [MathJaxDirective],
-  declarations: [AppComponent, ExamNewComponent, QuestionComponent, QuestionContainerComponent, CourseComponent, BaseComponent, MathJaxDirective],
+  declarations: [AppComponent, ExamComponent, QuestionComponent, QuestionContainerComponent, CourseComponent, BaseComponent, MathJaxDirective],
   bootstrap: [AppComponent]
 })
 export class AppModule {
