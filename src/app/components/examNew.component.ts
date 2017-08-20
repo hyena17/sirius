@@ -15,7 +15,7 @@ import '../rxjs-operators';
   selector: 'exams-list',
   template: `
     <div class="panel-heading">
-      <h3 class="panel-title">Lista de examenes</h3>
+      <h3 class="panel-title">Lista de examenes >> {{selectedCourse._id}}</h3>
     </div>
     <br><br><br><br>
     <div class="panel-body">
@@ -60,9 +60,7 @@ export class ExamNewComponent implements OnInit {
 
   exams: Exam[];
 
-
   errorMessage: string;
-  mode = 'Observable';
 
   constructor(private examService: ExamService) { }
 

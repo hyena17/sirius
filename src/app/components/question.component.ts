@@ -56,7 +56,7 @@ import '../rxjs-operators';
         <input type="text" class="form-control" [(ngModel)]="question.partialAnswer[0]">
         <br>
       </div>
-      <div *ngIf="question.statements.length > 0">
+      <div *ngIf="question.statements!==undefined &&question.statements.length > 0">
         <div *ngFor="let statement of question.statements; let indexStatement = index">
           <label class="control-label" [innerHTML]="statement"></label>
           <input type="text" class="form-control" name="question.{{indexStatement}}.answer" [(ngModel)]="question.partialAnswer[indexStatement]">

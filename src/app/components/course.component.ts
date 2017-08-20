@@ -92,7 +92,6 @@ export class CourseComponent implements OnInit {
 
   onSelectCourse(course: Course): void {
     this.selectedCourse = course;
-    console.log(course);
     this.selectedCourseChange.emit(course);
   }
 
