@@ -14,20 +14,25 @@ import '../rxjs-operators';
   template: `
   <div *ngIf="question">
 
-  <div class="row container">
+
+  <div *ngIf="question.statements!==undefined" class="row container">
     <div class="col-md-7">
       <div class="row">
         <div class="col-md-1">
-          <label *ngIf="question.statements!==undefined " >{{getLetter(indexQuestion)}})</label>
+          <label  >{{getLetter(indexQuestion)}})</label>
         </div>
         <div class="col-md-11">
-          <label [MathJax]="question.question">{{question.question}}</label>
+          <label [MathJax]="question.question" style="text-align:justify">{{question.question}}</label>
         </div>
       </div>
     </div>
     <div class="col-md-5">
     </div>
   </div>
+  <div *ngIf="question.statements===undefined">
+    <label [MathJax]="question.question" style="text-align:justify">{{question.question}}</label>
+  </div>
+
   <br>
 
   <div *ngIf="question.imageUrl" >
@@ -38,7 +43,7 @@ import '../rxjs-operators';
 
     <div *ngIf="question.type==0" >
       <md-radio-group  class="example-radio-group" [(ngModel)]="question.answerSelected" >
-        <div  *ngFor="let answer of question.options;let indexe=index" >
+        <div  *ngFor="let answer of question.options;let indexe=index" [(ngClass)]="question.selectedClass[indexe]" >
           <md-radio-button class="example-radio-button"[value]="answer">
             <strong>{{getLetter(indexe)}}) </strong> {{answer}}
           </md-radio-button>
@@ -88,13 +93,13 @@ export class QuestionComponent implements OnInit {
   @Input() question: Question;
   @Input() indexQuestion: number;
 
-  errorMessage: string;
-
   constructor(private examService: ExamService) { }
 
   ngOnInit(): void {
     this.question.partialAnswer = [];
     this.question.partialAnswerFormatted = [[], [], [], [], [], []];
+    this.question.selectedClass = ["", "", "", "", "", "", ""];
+
   }
 
   getLetter(index): string {

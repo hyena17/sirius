@@ -1,4 +1,4 @@
-import { Component, OnInit, EventEmitter, Output, AfterViewChecked, ElementRef, ViewChild, Input, QueryList} from '@angular/core';
+import { Component, OnInit, EventEmitter, Output, AfterViewChecked, SimpleChanges, ElementRef, ViewChild, Input, QueryList} from '@angular/core';
 import { Exam } from '../models/exam';
 import { Question } from '../models/question';
 import { Period } from '../models/period';
@@ -43,7 +43,7 @@ import '../rxjs-operators';
   <h3 class="panel-title"><strong>Pregunta {{index+1}}: </strong></h3>
   </div>
   <div class="panel-body">
-    <div class="angular-with-newlines" [innerHTML]="question.description">
+    <div class="angular-with-newlines" [innerHTML]="question.description" style="text-align:justify">
     </div>
     <br>
     <div *ngIf="question.image" >
@@ -74,9 +74,6 @@ export class QuestionContainerComponent implements OnInit {
 
   @ViewChild('scrollMe') myScrollContainer: ElementRef;
 
-  errorMessage: string;
-  mode = 'Observable';
-
   goodAnswers: number;
   badAnswers: number;
   gradeClass: string;
@@ -86,6 +83,10 @@ export class QuestionContainerComponent implements OnInit {
   constructor(private examService: ExamService) { }
 
   ngOnInit(): void {
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    this.gradeClass = undefined;
   }
 
   evaluateExam(): void {
@@ -105,11 +106,14 @@ export class QuestionContainerComponent implements OnInit {
         if (question.statements == undefined) {
           question.statements = [""];
           this.evaluateQuestion(question, statementIndex);
+          question.statements = undefined;
+          this.showRightAnswer(question, statementIndex);
         } else {
           for (var statement of question.statements) {
             //Pregunta con input para que el alumno escriba su respuesta
             //para ponerlo rojo o verde asumimos que el input siempre sera la primera opcion
             this.evaluateQuestion(question, statementIndex);
+            this.showRightAnswer(question, statementIndex);
             statementIndex++;
           }
         }
@@ -118,6 +122,27 @@ export class QuestionContainerComponent implements OnInit {
     }
     this.displayGrade();
 
+  }
+
+  showRightAnswer(question: Question, statementIndex: number): void {
+    var verdadero = 0;
+    var indice = 0;
+    if (question.type == 0) {
+      for (var option of question.options) {
+        if (question.answer == option) {
+          verdadero = indice;
+        }
+        if (question.answer == question.answerSelected && question.answerSelected == option) {
+          question.selectedClass[indice] = "text-success";
+        } else if (option == question.answerSelected) {
+          question.selectedClass[indice] = "text-danger";
+        } else {
+          question.selectedClass[indice] = "";
+        }
+        indice++;
+      }
+      question.selectedClass[verdadero] = "text-success";
+    }
   }
 
   evaluateQuestion(question: Question, statementIndex: number): void {
