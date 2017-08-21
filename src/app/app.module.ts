@@ -23,7 +23,6 @@ import {MathJaxDirective} from './components/mathjax.directive';
     RouterModule.forRoot([
       {
         path: 'exam',
-        //component: ExamComponent
         component: BaseComponent
       },
       {
