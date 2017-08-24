@@ -37,7 +37,7 @@ import '../rxjs-operators';
 
   <div *ngIf="question.imageUrl" >
     <div *ngFor="let image of question.imageUrl">
-      <img id="image" class="img-fluid" alt="Responsive image" src="{{image}}" >
+      <img id="image" class="img-fluid" alt="Responsive image" src="{{image}}" width="540" height="400">
     </div>
   </div>
 

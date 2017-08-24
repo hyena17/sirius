@@ -47,7 +47,7 @@ import '../rxjs-operators';
     </div>
     <div *ngIf="question.image" >
       <div *ngFor="let image of question.imageUrl">
-        <img id="image" class="img-fluid" alt="Responsive image" src="{{image}}" >
+        <img id="image" class="img-fluid" alt="Responsive image" src="{{image}}" width="540" height="400">
       </div>
     </div>
 
@@ -56,8 +56,8 @@ import '../rxjs-operators';
     </div>
   </div>
   </div>
-  <div  align="text-right">
-    <button class="btn btn-success"  (click)="evaluateExam();">Submit</button>
+  <div  align="text-right" style="position:fixed;bottom: 123px;right:20px">
+    <button class="btn btn-rounded btn-floating btn-success" (click)="evaluateExam();">Enviar Respuestas</button>
   </div>
   </div>
   </div>
