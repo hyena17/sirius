@@ -1,0 +1,226 @@
+{
+    "_id" : ObjectId("59952000fe3bf8a18a560477"),
+    "university" : "upc",
+    "period" : "2017-1",
+    "code" : "MA384",
+    "course" : "Fundamentos para el cálculo",
+    "type" : "PC1",
+    "new" : true,
+    "questionContainer" : [
+        {
+            "description" : "Escriba en la casilla correspondiente la letra (A,B,C o D) de la alternativa que usted considere correcta. Si Ud. considera que en alguna pregunta no aparece la alternativa correcta o hay un error en la formulación de la pregunta entonces ingrese la letra E como respuesta en la casilla correspondiente",
+            "imageUrl" : [],
+            "questions" : [
+                {
+                    "type" : 0,
+                    "image" : false,
+                    "imageUrl" : [],
+                    "question" : "La siguiente ecuación: <math><mfrac bevelled=\"false\"><mi>5x-5</mi><mi>x+3</mi></mfrac><mo>-</mo><mfrac bevelled=\"false\"><mi>2x-1</mi><mi>Nx-36</mi></mfrac><mo>=</mo><mn>1</mn></math>    tiene como conjunto de valores admisibles: CVA=R-{-3;4} ¿Cuál es el valor de \"N\"?",
+                    "options" : [
+                        "9",
+                        "2",
+                        "-2",
+                        "3"
+                    ],
+                    "points" : 4,
+                    "answer" : "9",
+                    "explanation" : ""
+                },
+                {
+                    "type" : 0,
+                    "image" : false,
+                    "imageUrl" : [],
+                    "question" : "¿Cúal es el conjunto solución de la siguiente ecuacion: <math><mfrac bevelled=\"false\"><mi>7x</mi><mi>x-3</mi></mfrac><mo>=</mo><mn>7</mn><mo>+</mo><mfrac bevelled=\"false\"><mi>21</mi><mi>x-3</mi></mfrac></math>?",
+                    "options" : [
+                        "CS = {}",
+                        "CS = R",
+                        "CS = R - {3}",
+                        "CS = R - {-2}"
+                    ],
+                    "points" : 4,
+                    "answer" : "CS = R - {3}",
+                    "explanation" : ""
+                },
+                {
+                    "type" : 0,
+                    "image" : false,
+                    "imageUrl" : [],
+                    "question" : "Al resolver la siguiente ecuación : <math><msqrt><mi>1-3x</mi></msqrt><mo>+</mo><mi>x</mi><mo>=</mo><mn>-3</mn></math>",
+                    "options" : [
+                        "CS = {4}",
+                        "CS = {-8}",
+                        "CS = {4;7}",
+                        "CS = {}"
+                    ],
+                    "points" : 4,
+                    "answer" : "CS = {-8}",
+                    "explanation" : ""
+                },
+                {
+                    "type" : 0,
+                    "image" : false,
+                    "imageUrl" : [],
+                    "question" : "Al resolver la ecuación lineal: <math><mi>a(-b+x)+</mi><mfrac bevelled=\"false\"><mi>ax</mi><mi>5</mi></mfrac><mo>=</mo><mi>-ab</mi></math> donde a y b son constantes no nulas y diferentes, se obtiene como conjunto solución:",
+                    "options" : [
+                        "CS = {}",
+                        "CS = {1/2a}",
+                        "CS = {2b}",
+                        "CS = {0}"
+                    ],
+                    "points" : 4,
+                    "answer" : "CS = {0}",
+                    "explanation" : ""
+                },
+                {
+                    "type" : 0,
+                    "image" : false,
+                    "imageUrl" : [],
+                    "question" : "En una fabrica de juegos de comedor la suma de los costos mensuales por alquiler de local y pago de servicios es de S/.30 000. Determine el costo de fabricar un juego de comedor si se sabe que cuando se fabrican 80 juegos de comedor en un mes, el costo total es de S/.54 000.",
+                    "options" : [
+                        "840 soles",
+                        "540 soles",
+                        "245 soles",
+                        "300 soles"
+                    ],
+                    "points" : 4,
+                    "answer" : "300 soles",
+                    "explanation" : ""
+                },
+                {
+                    "type" : 0,
+                    "image" : false,
+                    "imageUrl" : [],
+                    "question" : "Dada la ecuación <math><msup><mi>x</mi><mi>2</mi></msup><mi>+ 5kx + 20 = 0</mi></math>, donde k es una constante. ¿Cúal es el mayor valor que puede tomar 'k' para que la ecuación tenga solución única?",
+                    "options" : [
+                        "0",
+                        "1",
+                        "4",
+                        "-4"
+                    ],
+                    "points" : 4,
+                    "answer" : "4",
+                    "explanation" : ""
+                },
+                {
+                    "type" : 0,
+                    "image" : false,
+                    "imageUrl" : [],
+                    "question" : "Si el conjunto solución de ecuaciones lineales <math><mfenced><mtable><mtr><mtd><mn>-x+ay=2</mn></mtd></mtr><mtr><mtd><mn>bx+y=17</mn></mtd></mtr></mtable></mfenced></math> es {(3;5)}, ¿Cuál es el valor de <math><mi>a+</mi><mfrac bevelled=\"false\"><mi>b</mi><mi>4</mi></mfrac></math>?",
+                    "options" : [
+                        "2",
+                        "-3",
+                        "4",
+                        "-4"
+                    ],
+                    "points" : 4,
+                    "answer" : "2",
+                    "explanation" : ""
+                },
+                {
+                    "type" : 0,
+                    "image" : false,
+                    "imageUrl" : [],
+                    "question" : "Determine el mayor valor entero del conjunto solución de la inecuación: <math><mfrac bevelled=\"false\"><mi>5x-2</mi><mi>3</mi></mfrac><mo>-</mo><mfrac bevelled=\"false\"><mi>x-8</mi><mi>4</mi></mfrac><mo><</mo><mfrac bevelled=\"false\"><mi>x+14</mi><mi>2</mi></mfrac><mi>-2</mi></math>",
+                    "options" : [
+                        "-1",
+                        "3",
+                        "-3",
+                        "-4"
+                    ],
+                    "points" : 4,
+                    "answer" : "3",
+                    "explanation" : ""
+                }
+            ]
+        },
+        {
+            "description" : "CANFOOD es una empresa que produce y comercializa alimento de alto valor nutritivo para perros. Es importante senialar que actualmente el alimento para mascotas se ha convertido en parte del presupuesto de muchas familias y esta marca se ha propuesto entrar al mercado peruano compitiendo al mismo nivel de marcas reconocidas en el mercado nacional. <br>El gerente desea ordenar la información de la empresa y desea completa la siguiente tabla, para una cantidad \"q\" de sacos de 15 kilos que produce y vende mensualmente.",
+            "imageUrl" : [],
+            "questions" : [
+                {
+                    "type" : 2,
+                    "imageUrl" : [],
+                    "question" : "Explique como determinar la cantidad de sacos que se debe producir y vender para no ganar ni perder",
+                    "statements" : [],
+                    "points" : 0.5,
+                    "answers" : [
+                        "Utilidad = 0 o ingreso = costo. Para determinar la cantidad de sacos que se debe producir y vender para no sumar ni perder se debe igualar la utilidad a 0 o igualar el ingreso al costo"
+                    ],
+                    "explanation" : ""
+                },
+                {
+                    "type" : 2,
+                    "imageUrl" : [],
+                    "question" : "Determine el precio de venta y la cantidad de sacos vendidos según los datos de la tabla.",
+                    "statements" : [],
+                    "points" : 0.5,
+                    "answers" : [
+                        "Según los datos que nos da la tabla por la operación del ingreso el precio de venta es igual a 240 soles y la cantidad de sacos vendidos es de 250 unidades"
+                    ],
+                    "explanation" : ""
+                },
+                {
+                    "type" : 2,
+                    "imageUrl" : [],
+                    "question" : "Represente las ecuaciones de costo y utilidad según la información de la tabla.",
+                    "statements" : [],
+                    "points" : 1,
+                    "answers" : [
+                        "C=CU*Q+CF U=I-C"
+                    ],
+                    "explanation" : ""
+                },
+                {
+                    "type" : 2,
+                    "imageUrl" : [],
+                    "question" : "El gerente ha calculado que el mes pasado, la utilidad fue del 48% del costo total. Determine cuántos sacos vendio para lograr dicha utilidad",
+                    "statements" : [],
+                    "points" : 2,
+                    "answers" : [
+                        "Para lograr dicha utilidad debe vender 146,05 sacos de comidad."
+                    ],
+                    "explanation" : ""
+                },
+                {
+                    "type" : 2,
+                    "imageUrl" : [],
+                    "question" : "El gerente desea incrementar los ingresos mensuales de la empresa y se basa en la información del mes de Abril donde el precio fue de S./240 y vendio 250 sacos. Ha observado que por cada S/.5 que aumenta el precio por saco, dejaría de vender 3 sacos al mes . Determine el precio al que debe vender si desea alcanzar un ingreso de S./61 880",
+                    "statements" : [],
+                    "points" : 2,
+                    "answers" : [
+                        "Precio 260 o 396,66"
+                    ],
+                    "explanation" : ""
+                }
+            ]
+        },
+        {
+            "description" : "<b>Caso II RESTAURANTE TIA TECHY</b><br>El restaurante TIA TECHY se ha caracterizado por la sabrosa preparación de dos platos norteños, el seco de cabrito y el arroz con pato, muy pedido por sus comensales. <br>Este restaurante está ubicado en Pueblo Libre y atiende todos los días, con excepción de los Lunes donde se dedican a la limpieza general del local.<br>El gerente tiene información incompleta sobre el número de platos semanales que venden por tal motivo desea saber dichas cantidades.<br><br>a) El costo total de un plato de seco de cabrito es de S/.13 y por un plato de arroz S/.12<br>b)El ingreso por la venta de un plato de seco de cabrito es de S/.21, y de un plato de arroz con pato es de S/.18.<br><br>La mamá Augusta es la encargada de hacer las compras y dispone de S/.19 440 para cubrir los costos semanales. La venta de los platos genera una utilidad de S/.10 800 en dicha semana.",
+            "imageUrl" : [],
+            "questions" : [
+                {
+                    "type" : 2,
+                    "imageUrl" : [],
+                    "question" : "¿Qué es lo que se desea saber? Defina las incognitas",
+                    "statements" : [],
+                    "points" : 0.5,
+                    "answers" : [
+                        "Se desea saber el número de platos semanales que venden, siendo x el número de platos de seco de cabrito vendidos e y el número de platos de arroz con pato vendidos "
+                    ],
+                    "explanation" : ""
+                },
+                {
+                    "type" : 2,
+                    "imageUrl" : [],
+                    "question" : "Organice los datos de los costos e ingresos por cada plato de comida",
+                    "statements" : [],
+                    "points" : 1,
+                    "answers" : [
+                        ""
+                    ],
+                    "explanation" : ""
+                }
+            ]
+        }
+    ]
+}

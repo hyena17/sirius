@@ -19,10 +19,10 @@ import '../rxjs-operators';
   <!-- @TODO move to another component -->
   <div  *ngIf="selectedExam"  #scrollMe>
 
-  <div class="panel panel-colorful panel-primary">
+  <div class="panel-colorful panel-primary">
     <div  align="center" class="panel-heading">
       <ul>
-        <label class="panel-title">{{selectedExam.period}} : {{selectedExam.course}} - {{selectedExam.type}}</label><br>
+        <label class="panel-title">{{selectedExam.period}} : {{selectedExam.course}} - {{selectedExam.type}}</label>
       </ul>
     </div>
   </div>
@@ -30,7 +30,7 @@ import '../rxjs-operators';
     <div [(ngClass)]="gradeClass">
       <div  align="center" class="panel-heading">
         <ul>
-          <label class="panel-title">{{gradeMessage}} {{goodAnswers}} de {{gradeTotal}}</label><br>
+          <label class="panel-title">{{gradeMessage}} {{goodAnswers}} de {{gradeTotal}}</label>
         </ul>
       </div>
     </div>
@@ -38,14 +38,13 @@ import '../rxjs-operators';
 
   <!-- DISPLAYING QUESTIONS FOR NEW JSON-->
   <div *ngIf="selectedExam.new!==undefined">
-  <div class="form-group panel panel-bordered panel-mint" *ngFor="let question of selectedQuestions;let index = index">
+  <div class="panel-bordered panel-mint" *ngFor="let question of selectedQuestions;let index = index">
   <div class="panel-heading">
   <h3 class="panel-title"><strong>Pregunta {{index+1}}: </strong></h3>
   </div>
   <div class="panel-body">
     <div class="angular-with-newlines" [innerHTML]="question.description" style="text-align:justify">
     </div>
-    <br>
     <div *ngIf="question.image" >
       <div *ngFor="let image of question.imageUrl">
         <img id="image" class="img-fluid" alt="Responsive image" src="{{image}}" >
@@ -54,7 +53,6 @@ import '../rxjs-operators';
 
     <div *ngFor="let singleQuestion of question.questions; let indexQuestion=index">
       <question [question]="singleQuestion" [indexQuestion]="indexQuestion"></question>
-      <br>
     </div>
   </div>
   </div>
@@ -201,18 +199,18 @@ export class QuestionContainerComponent implements OnInit {
     this.gradeTotal = (this.goodAnswers + this.badAnswers);
 
     if (note >= 75) {
-      this.gradeClass = "panel panel-colorful panel-success";
+      this.gradeClass = "panel-colorful panel-success";
       this.gradeMessage = "Muy bien :D Sacaste ";
     }
     else if (note >= 50 && note < 75) {
-      this.gradeClass = "panel panel-colorful panel-warning";
+      this.gradeClass = "panel-colorful panel-warning";
       this.gradeMessage = "Estudia un poco mas vas en buen camino :). Sacaste ";
 
     } else if (note >= 25 && note < 50) {
-      this.gradeClass = "panel panel-colorful panel-danger";
+      this.gradeClass = "panel-colorful panel-danger";
       this.gradeMessage = "Estudia mas :(. Sacaste ";
     } else {
-      this.gradeClass = "panel panel-colorful panel-dark";
+      this.gradeClass = "panel-colorful panel-dark";
       this.gradeMessage = "TROLOLOL . Sacaste ";
     }
 

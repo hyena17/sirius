@@ -97,44 +97,16 @@
   <!--END NAVBAR-->
 
   <div class="boxed">
-
     <!--CONTENT CONTAINER-->
     <!--===================================================-->
     <div id="content-container">
-
-      <!--Page Title-->
-      <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
-      <div id="page-title">
-        <h1 class="page-header text-overflow">Dashboard</h1>
-        <label>Tienes examenes que quieres que aparescan?</label>
-        <label>Mandanoslos al siguiente correo: <strong>support@dwarftor.com</strong></label>
-      </div>
-      <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
-      <!--End page title-->
-
       <!--Page content-->
       <!--===================================================-->
-      <div id="page-content">
-        <div class="row">
-          <div class="col-xs-12">
-
-            <div class="panel">
-            <nav style="margin-left: 40px;">
-            </nav>
-            <div class="panel-body">
-            <router-outlet></router-outlet>
-            </div>
-
-            </div>
-
-          </div>
-        </div>
-      </div>
+        <router-outlet></router-outlet>
       <!--===================================================-->
       <!--End page content-->
-
-
     </div>
+  </div>
     <!--===================================================-->
     <!--END CONTENT CONTAINER-->
 
@@ -142,30 +114,24 @@
     <!--===================================================-->
     <nav id="mainnav-container">
       <div id="mainnav">
-
+        <div *ngIf="currentUser===undefined || currentUser==null" >
+          <label>Dwarftor es una aplicación para compartir examenes pasados.<br><br> Solo selecciona un examen, resuelvelo y recibiras tu nota.</label><br><br><br><br><br>
+          <label>Si deseas compartir un examén envialo al siguiente correo: <strong>support@dwarftor.com</strong></label>
+        </div>
         <!--Menu-->
         <!--================================-->
         <div id="mainnav-menu-wrap">
           <div class="nano">
-            <div  *ngIf="currentUser" class="nano-content">
+            <div   *ngIf="currentUser"  class="nano-content">
 
               <!--Profile Widget-->
               <!--================================-->
               <div id="mainnav-profile" class="mainnav-profile">
                 <div class="profile-wrap">
-                  <div class="pad-btm">
-                    <span class="label label-success pull-right">New</span>
-                    <img class="img-circle img-sm img-border" src="img/profile-photos/1.png" alt="Profile Picture">
-                  </div>
-                  <a href="#profile-nav" class="box-block" data-toggle="collapse" aria-expanded="false">
-                    <span class="pull-right dropdown-toggle">
-                                              <i class="dropdown-caret"></i>
-                                          </span>
                     <p class="mnp-name"> {{currentUser.name}}</p>
                     <span class="mnp-desc">{{currentUser.email}}</span>
-                  </a>
                 </div>
-                <div id="profile-nav" class="collapse list-group bg-trans">
+                <div id="profile-nav" class="list-group bg-trans">
                   <a href="#" class="list-group-item">
                     <i class="demo-pli-male icon-lg icon-fw"></i> View Profile
                   </a>
@@ -174,50 +140,31 @@
                   </div>
                 </div>
               </div>
-
-
-              <!--Shortcut buttons-->
-              <!--================================-->
-              <div id="mainnav-shortcut">
-                <ul class="list-unstyled">
-                  <li class="col-xs-3" data-content="My Profile">
-                    <a class="shortcut-grid" href="#">
-                      <i class="demo-psi-male"></i>
-                    </a>
-                  </li>
-                </ul>
-              </div>
               <!--================================-->
               <!--End shortcut buttons-->
-
-
               <ul id="mainnav-menu" class="list-group">
-
                 <!--Category name-->
-                <li class="list-header">Navigation</li>
-
-                <!--Menu list item-->
-                <li class="active-link">
-                  <a href="index.html">
-                    <i class="demo-psi-home"></i>
-                    <span class="menu-title">
-                      <strong>Dashboard</strong>
-                    </span>
-                  </a>
-                </li>
+                <!--Instructions-->
+                <li class="list-header">Instructions</li>
+                    <label>Dwarftor es una aplicación para compartir examenes pasados.<br><br> Solo selecciona un examen, resuelvelo y recibiras tu nota.</label><br><br><br><br><br>
+                    <label>Si deseas compartir un examén envialo al siguiente correo: <strong>support@dwarftor.com</strong></label>
               </ul>
             </div>
-          </div>
+
         </div>
+
+      </div>
+
         <!--================================-->
         <!--End menu-->
+
 
       </div>
     </nav>
     <!--===================================================-->
     <!--END MAIN NAVIGATION-->
 
-  </div>
+
 
 
 
@@ -236,7 +183,7 @@
     <!-- Visible when footer positions are static -->
     <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
     <div class="hide-fixed pull-right pad-rgt">
-       support@dwarftor.com  <strong>:)</strong> Free
+       <strong>:)</strong> Es gratis
     </div>
 
 

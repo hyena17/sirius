@@ -19,8 +19,6 @@ import '../rxjs-operators';
       </div>
     </div>
   </div>
-  <br>
-  <br>
   <div *ngIf="selectedExam" class="row">
     <question-container #questioncontainerItem [selectedExam]="selectedExam" [selectedQuestions]='selectedExam.questionContainer'></question-container>
   </div>
