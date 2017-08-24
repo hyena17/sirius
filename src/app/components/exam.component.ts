@@ -32,7 +32,7 @@ import '../rxjs-operators';
           <tbody>
             <tr *ngFor="let exam of mf.data;let index=index" (click)="onSelectExam(exam)">
               <td class="text-center col-md-0">{{index+1}}</td>
-              <td class="text-center col-md-0">{{exam.period}}</td>
+              <td class="text-center col-md-0"><div [ngClass]="periodClass(exam.period)">{{exam.period}}</div></td>
               <td class="text-center col-md-3">{{exam.type}}</td>
             </tr>
           </tbody>
@@ -86,6 +86,74 @@ export class ExamComponent implements OnInit {
   onSelectExam(exam: Exam): void {
     this.selectedExam = exam;
     this.selectedExamChange.emit(exam);
+  }
+
+  periodClass(period: string): string {
+    var periodClass;
+    switch (period) {
+      case "2012-0":
+        periodClass = "label label-table label-purple";
+        break;
+      case "2012-1":
+        periodClass = "label label-table label-success";
+        break;
+      case "2012-2":
+        periodClass = "label label-table label-pink";
+        break;
+
+      case "2013-0":
+        periodClass = "label label-table label-warning";
+        break;
+      case "2013-1":
+        periodClass = "label label-table label-info";
+        break;
+      case "2013-2":
+        periodClass = "label label-table label-mint";
+        break;
+
+      case "2014-0":
+        periodClass = "label label-table label-primary";
+        break;
+      case "2014-1":
+        periodClass = "label label-table label-danger";
+        break;
+      case "2014-2":
+        periodClass = "label label-table label-warning";
+        break;
+
+      case "2015-0":
+        periodClass = "label label-table label-purple";
+        break;
+      case "2015-1":
+        periodClass = "label label-table label-success";
+        break;
+      case "2015-2":
+        periodClass = "label label-table label-pink";
+        break;
+
+      case "2016-0":
+        periodClass = "label label-table label-warning";
+        break;
+      case "2016-1":
+        periodClass = "label label-table label-info";
+        break;
+      case "2016-2":
+        periodClass = "label label-table label-mint";
+        break;
+
+      case "2017-0":
+        periodClass = "label label-table label-primary";
+        break;
+      case "2017-1":
+        periodClass = "label label-table label-danger";
+        break;
+      case "2017-2":
+        periodClass = "label label-table label-warning";
+        break;
+      default:
+        periodClass = "label label-table label-default";
+    }
+    return periodClass;
   }
 
 }

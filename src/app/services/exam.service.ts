@@ -20,7 +20,7 @@ export class ExamService {
       .catch(this.handleError);
   }
   getExamsByCourse(course): Observable<Exam[]> {
-    return this.http.get(this.collectionUrl + "?filter[where][course]=" + course + "&filter[order]=period%20DESC")
+    return this.http.get(this.collectionUrl + "?filter[where][course]=" + course + "&filter[order][0]=period%20DESC&filter[order][1]=type%20ASC")
       .map(this.extractData)
       .catch(this.handleError);
   }
