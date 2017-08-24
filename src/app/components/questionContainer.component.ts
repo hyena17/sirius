@@ -17,27 +17,25 @@ import '../rxjs-operators';
   template: `
   <!-- TITTLE OF EXAMEN -->
   <!-- @TODO move to another component -->
-  <div  *ngIf="selectedExam"  #scrollMe>
+  <div  *ngIf="selectedExam"  >
 
-  <div class="panel-colorful panel-primary">
+
+
+  <div class="panel-colorful panel-primary" #scrollMe>
     <div  align="center" class="panel-heading">
-      <ul>
-        <label class="panel-title">{{selectedExam.period}} : {{selectedExam.course}} - {{selectedExam.type}}</label>
-      </ul>
+        <label class="panel-title">{{selectedExam.course}}</label>
+    </div>
+    <div  align="center" class="panel-body">
+        <p class="text-bold">{{selectedExam.period}} {{selectedExam.type}}</p>
     </div>
   </div>
-  <div *ngIf="gradeClass!==undefined">
-    <div [(ngClass)]="gradeClass">
-      <div  align="center" class="panel-heading">
-        <ul>
+  <div *ngIf="gradeClass!==undefined" [(ngClass)]="gradeClass" >
+    <div   align="center" class="panel-heading">
           <label class="panel-title">{{gradeMessage}} {{goodAnswers}} de {{gradeTotal}}</label>
-        </ul>
-      </div>
     </div>
   </div>
-
   <!-- DISPLAYING QUESTIONS FOR NEW JSON-->
-  <div *ngIf="selectedExam.new!==undefined">
+  <div *ngIf="selectedExam.new!==undefined" >
   <div class="panel-bordered panel-mint" *ngFor="let question of selectedQuestions;let index = index">
   <div class="panel-heading">
   <h3 class="panel-title"><strong>Pregunta {{index+1}}: </strong></h3>
@@ -213,8 +211,6 @@ export class QuestionContainerComponent implements OnInit {
       this.gradeClass = "panel-colorful panel-dark";
       this.gradeMessage = "TROLOLOL . Sacaste ";
     }
-
-    this.myScrollContainer.nativeElement.scrollIntoView(true);
-
+    this.myScrollContainer.nativeElement.scrollIntoView(false);
   }
 }
