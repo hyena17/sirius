@@ -1,4 +1,6 @@
 import { Component, OnInit, EventEmitter, Input, Output, AfterViewChecked, ElementRef, ViewChild, QueryList, SimpleChanges} from '@angular/core';
+import {Router, ActivatedRoute, Params, NavigationExtras} from '@angular/router';
+
 import { Exam } from '../models/exam';
 import { Question } from '../models/question';
 import { Period } from '../models/period';
@@ -62,7 +64,7 @@ export class ExamComponent implements OnInit {
 
   errorMessage: string;
 
-  constructor(private examService: ExamService) { }
+  constructor(private activatedRoute: ActivatedRoute, private router: Router, private examService: ExamService) { }
 
   ngOnInit(): void {
   }
@@ -85,6 +87,14 @@ export class ExamComponent implements OnInit {
 
   onSelectExam(exam: Exam): void {
     this.selectedExam = exam;
+
+    let navigationExtra: NavigationExtras = {
+      relativeTo: this.activatedRoute,
+      skipLocationChange: false,
+      queryParams: { codeId: exam.code, universityId: exam.university, examId: exam.id }
+    }
+    this.router.navigate(['./'], navigationExtra);
+
     this.selectedExamChange.emit(exam);
   }
 

@@ -35,6 +35,16 @@ export class ExamService {
       .catch(this.handleError);
   }
 
+  getCourse(codeId, universityId): Observable<Course[]> {
+    return this.http.get(this.collectionUrl + "/course?code=" + codeId + "&university=" + universityId).map(this.extractData)
+      .catch(this.handleError);
+  }
+
+  getExam(examId): Observable<Exam> {
+    return this.http.get(this.collectionUrl + "/" + examId).map(this.extractData)
+      .catch(this.handleError);
+  }
+
   private extractData(res: Response) {
     let body = res.json();
     return body || {};

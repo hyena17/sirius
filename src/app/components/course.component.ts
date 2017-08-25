@@ -1,10 +1,10 @@
 import { Component, OnInit, EventEmitter, Input, Output, AfterViewChecked, ElementRef, ViewChild, QueryList} from '@angular/core';
+import {Router, ActivatedRoute, Params, NavigationExtras} from '@angular/router';
 import { Exam } from '../models/exam';
 import { Question } from '../models/question';
 import { Period } from '../models/period';
 import { Course } from '../models/course';
 import { QuestionContainer } from '../models/questionContainer';
-
 import { QuestionContainerComponent } from '../components/questionContainer.component';
 
 import { ExamService } from '../services/exam.service';
@@ -70,7 +70,7 @@ export class CourseComponent implements OnInit {
   filteredCourses: Course[];
   errorMessage: string;
 
-  constructor(private examService: ExamService) { }
+  constructor(private activatedRoute: ActivatedRoute, private router: Router, private examService: ExamService) { }
 
   ngOnInit(): void {
     this.getCourses();
@@ -92,7 +92,17 @@ export class CourseComponent implements OnInit {
 
   onSelectCourse(course: Course): void {
     this.selectedCourse = course;
+
+    let navigationExtra: NavigationExtras = {
+      relativeTo: this.activatedRoute,
+      skipLocationChange: false,
+      queryParams: { codeId: course.code, universityId: course.university }
+    }
+    this.router.navigate(['./'], navigationExtra);
+
     this.selectedCourseChange.emit(course);
+
+
   }
 
   assignCopy() {
