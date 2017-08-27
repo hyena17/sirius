@@ -17,11 +17,11 @@ import '../rxjs-operators';
   template: `
   <!-- TITTLE OF EXAMEN -->
   <!-- @TODO move to another component -->
-  <div  *ngIf="selectedExam"  >
+  <div  *ngIf="selectedExam"  class="panel" >
 
 
 
-  <div class="panel-colorful panel-primary" #scrollMe>
+  <div class="panel-colorful panel-mint" #scrollMe>
     <div  align="center" class="panel-heading">
         <label class="panel-title">{{selectedExam.course}}</label>
     </div>
@@ -36,7 +36,7 @@ import '../rxjs-operators';
   </div>
   <!-- DISPLAYING QUESTIONS FOR NEW JSON-->
   <div *ngIf="selectedExam.new!==undefined" >
-  <div class="panel-bordered panel-mint" *ngFor="let question of selectedQuestions;let index = index">
+  <div class="panel-bordered panel-info" *ngFor="let question of selectedQuestions;let index = index">
   <div class="panel-heading">
   <h3 class="panel-title"><strong>Pregunta {{index+1}}: </strong></h3>
   </div>
@@ -54,7 +54,7 @@ import '../rxjs-operators';
     </div>
   </div>
   </div>
-  <div  align="text-right" style="position:fixed;bottom: 123px;right:20px">
+  <div  align="text-right" style="position:fixed;bottom: 50px;right:20px">
     <button class="btn btn-rounded btn-floating btn-success" (click)="evaluateExam();">Enviar Respuestas</button>
   </div>
   </div>

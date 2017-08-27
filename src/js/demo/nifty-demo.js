@@ -452,12 +452,12 @@ $(document).ready(function () {
             $('#demo-theme').on('click', '.demo-theme', function (e) {
                 e.preventDefault();
                 var el = $(this);
-                if (el.hasClass('disabled')) {
+                if (el.hasClass('disabled') || el.hasClass('active')) {
                     return false;
                 }
                 changeTheme(el.attr('data-theme'), el.attr('data-type'));
-                themeBtn.removeClass('disabled');
-                el.addClass('disabled');
+                themeBtn.removeClass('active');
+                el.addClass('active').tooltip('hide');
                 return false;
             });
         }

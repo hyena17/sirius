@@ -10,7 +10,6 @@
 $(window).on('load', function() {
 
 
-
     // Network chart ( Morris Line Chart )
     // =================================================================
     // Require MorrisJS Chart
@@ -84,7 +83,7 @@ $(window).on('load', function() {
         yLabelFormat :function (y) { return y.toString() + ' Mb/s'; },
         gridEnabled: false,
         gridLineColor: 'transparent',
-        lineColors: ['#82c4f8','#0d92fc'],
+        lineColors: ['#a5cae2','#294d73'],
         lineWidth:[0,0],
         pointSize:[0,0],
         fillOpacity: 1,
@@ -106,14 +105,14 @@ $(window).on('load', function() {
     // http://omnipotent.net/jquery.sparkline/#s-about
     // =================================================================
     var hddSparkline = function() {
-        $("#demo-sparkline-area").sparkline([57,69,70,62,73,79,76,77,73,52,57,50,60,55,70,68], {
+        $("#demo-sparkline-area").sparkline([57,69,70,62,73,79,76,77,73,52,57,50,60,55,70,68,57,62,53,69,59,67,69,58,50,47,65], {
             type: 'line',
             width: '100%',
-            height: '40',
-            spotRadius: 5,
-            lineWidth: 1.5,
+            height: '55',
+            spotRadius: 4,
+            lineWidth: 2,
             lineColor:'rgba(255,255,255,.85)',
-            fillColor: 'rgba(0,0,0,0.03)',
+            fillColor: 'rgba(0,0,0,0.1)',
             spotColor: 'rgba(255,255,255,.5)',
             minSpotColor: 'rgba(255,255,255,.5)',
             maxSpotColor: 'rgba(255,255,255,.5)',
@@ -126,35 +125,6 @@ $(window).on('load', function() {
     }
 
 
-
-
-    // EARNING - SPARKLINE LINE CHART
-    // =================================================================
-    // Require sparkline
-    // -----------------------------------------------------------------
-    // http://omnipotent.net/jquery.sparkline/#s-about
-    // =================================================================
-    var earningSparkline = function(){
-        $("#demo-sparkline-line").sparkline([345,404,305,455,378,567,586,685,458,742,565], {
-            type: 'line',
-            width: '100%',
-            height: '40',
-            spotRadius: 4,
-            lineWidth:1,
-            lineColor:'#ffffff',
-            fillColor: false,
-            minSpotColor :false,
-            maxSpotColor : false,
-            highlightLineColor : '#ffffff',
-            highlightSpotColor: '#ffffff',
-            tooltipChartTitle: 'Earning',
-            tooltipPrefix :'$ ',
-            spotColor:'#ffffff',
-            valueSpots : {
-                '0:': '#ffffff'
-            }
-        });
-    }
 
 
 
@@ -172,24 +142,22 @@ $(window).on('load', function() {
     var salesSparkline = function(){
          barEl.sparkline(barValues, {
             type: 'bar',
-            height: 55,
+            height: 83,
             barWidth: Math.round((barEl.parent().width() - ( barValueCount - 1 ) * barSpacing ) / barValueCount),
             barSpacing: barSpacing,
             zeroAxis: false,
             tooltipChartTitle: 'Daily Sales',
             tooltipSuffix: ' Sales',
-            barColor: 'rgba(255,255,255,.7)'
+            barColor: 'rgba(0,0,0,.15)'
         });
     }
 
 
     $(window).on('resizeEnd', function(){
         hddSparkline();
-        earningSparkline();
         salesSparkline();
     })
     hddSparkline();
-    earningSparkline();
     salesSparkline();
 
 
@@ -202,7 +170,9 @@ $(window).on('load', function() {
     // -----------------------------------------------------------------
     // http://www.themeon.net
     // =================================================================
-    $('#demo-panel-network-refresh').niftyOverlay().on('click', function(){
+    $('#demo-panel-network-refresh').niftyOverlay({
+        iconClass : 'demo-psi-repeat-2'
+    }).on('click', function(){
         var $el = $(this), relTime;
 
         $el.niftyOverlay('show');
@@ -226,7 +196,7 @@ $(window).on('load', function() {
     // Require Admin Core Javascript
     // =================================================================
     $.niftyNoty({
-        type: 'dark',
+        type: 'primary',
         title: 'Welcome Administrator.',
         message: 'You will notice that you now have an admin menu<br> that appears on the right hand side.',
         container: 'floating',

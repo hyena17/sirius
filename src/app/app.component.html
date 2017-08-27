@@ -1,4 +1,4 @@
-<div id="container" class="effect aside-float aside-bright mainnav-lg">
+<div id="container" class="effect aside-float aside-bright mainnav-lg navbar-fixed footer-fixed">
 
   <!--NAVBAR-->
   <!--===================================================-->
@@ -7,9 +7,9 @@
 
       <!--Brand logo & name-->
       <!--================================-->
-      <div class="navbar-header">
+      <div class="navbar-header" align="center">
         <a href="index.html" class="navbar-brand">
-          <!--<img src="img/logo.png" alt="Nifty Logo" class="brand-icon">-->
+          <img src="img/logo1.png" alt="Dwarftor Logo" class="brand-icon">
           <div class="brand-title">
             <span class="brand-text">Dwarftor</span>
           </div>
@@ -115,6 +115,9 @@
     <nav id="mainnav-container">
       <div id="mainnav">
         <div *ngIf="currentUser===undefined || currentUser==null" >
+          <br>
+          <br>
+          <br>
           <label>Dwarftor es una aplicación para compartir examenes pasados.<br><br> Solo selecciona un examen, resuelvelo y recibiras tu nota.</label><br><br><br><br><br>
           <label>Si deseas compartir un examén envialo al siguiente correo: <strong>support@dwarftor.com</strong></label>
         </div>
@@ -175,15 +178,12 @@
     <!-- Visible when footer positions are fixed -->
     <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
     <div class="show-fixed pull-right">
-      You have <a href="#" class="text-bold text-main"><span class="label label-danger">3</span> pending action.</a>
+      <strong>:)</strong> Es gratis
     </div>
-
-
-
     <!-- Visible when footer positions are static -->
     <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
     <div class="hide-fixed pull-right pad-rgt">
-       <strong>:)</strong> Es gratis
+
     </div>
 
 

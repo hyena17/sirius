@@ -71,6 +71,26 @@ $(document).ready(function() {
 
 
 
+
+    // RANGE SLIDER - SLIDER STEP BY STEP
+    // =================================================================
+    // Require noUiSlider
+    // http://refreshless.com/nouislider/
+    // =================================================================
+
+    var rs_disabled = document.getElementById('demo-range-disabled');
+
+    noUiSlider.create(rs_disabled,{
+        start   : [ 20 ],
+        connect : 'lower',
+        range   : {
+            'min': [  0 ],
+            'max': [ 100 ]
+        }
+    });
+
+
+
     // VERTICAL RANGE SLIDER
     // =================================================================
     // Require noUiSlider
