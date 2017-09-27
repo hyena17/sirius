@@ -18,8 +18,8 @@ import '../rxjs-operators';
   <div *ngIf="question.statements!==undefined" class="row container">
     <div class="col-md-7">
       <div class="row">
-        <div class="col-md-1">
-          <label  >{{getLetter(indexQuestion)}})</label>
+        <div class="col-md-1"  *ngIf="getLetterForStatements(indexQuestion)">
+          <label  >{{getLetter(indexQuestion)}}</label>
         </div>
         <div class="col-md-11">
           <label [MathJax]="question.question" style="text-align:justify">{{question.question}}</label>
@@ -47,7 +47,7 @@ import '../rxjs-operators';
       <md-radio-group  class="example-radio-group" [(ngModel)]="question.answerSelected" >
         <div  *ngFor="let answer of question.options;let indexe=index" [(ngClass)]="question.selectedClass[indexe]" >
           <md-radio-button class="example-radio-button"[value]="answer">
-            <strong>{{getLetter(indexe)}}) </strong> {{answer}}
+            <strong>{{getLetter(indexe)}} </strong> {{answer}}
           </md-radio-button>
         </div>
       </md-radio-group>
@@ -60,6 +60,7 @@ import '../rxjs-operators';
       </div>
       <div *ngIf="question.statements!==undefined && question.statements.length > 0">
         <div *ngFor="let statement of question.statements; let indexStatement = index">
+          <strong>{{getLetter(indexStatement)}} </strong>
           <label class="control-label" [innerHTML]="statement"></label>
           <input type="text" class="form-control" name="question.{{indexStatement}}.answer" [(ngModel)]="question.partialAnswer[indexStatement]">
           <br>
@@ -105,7 +106,13 @@ export class QuestionComponent implements OnInit {
   }
 
   getLetter(index): string {
-    return String.fromCharCode(97 + index);
+    return String.fromCharCode(97 + index) + ")";
+  }
+  getLetterForStatements(index): boolean {
+    if (this.question.statements === undefined || this.question.statements.length < 2) {
+      return false;
+    }
+    return true;
   }
 
 
