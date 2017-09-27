@@ -41,7 +41,8 @@ import '../rxjs-operators';
   <h3 class="panel-title"><strong>Pregunta {{index+1}}: </strong></h3>
   </div>
   <div class="panel-body">
-    <div class="angular-with-newlines" [innerHTML]="question.description" style="text-align:justify">
+    <div  >
+      <label [MathJax]="question.description" style="text-align:justify">{{question.description}}</label>
     </div>
     <div *ngIf="question.image" >
       <div *ngFor="let image of question.imageUrl">
