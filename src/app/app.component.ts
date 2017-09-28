@@ -55,6 +55,8 @@ export class AppComponent {
   myFacebookLogout() {
     WindowRef.get().FB.logout(
       (response: any) => {
+        console.log(response);
+        console.log('deslogueado');
         this._ngZone.run(() => {
           localStorage.removeItem('currentUser');
           location.reload();
