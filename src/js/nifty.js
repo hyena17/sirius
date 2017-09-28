@@ -1,5 +1,5 @@
 /* ========================================================================
-* NIFTY ADMIN TEMPLATE V2.7
+* NIFTY ADMIN TEMPLATE V2.7.1
 * -------------------------------------------------------------------------
 * - themeOn.net -
 * ========================================================================*/
@@ -1538,12 +1538,6 @@
                         $(this).parent('li').toggleClass('open');
                     })
                 }
-                $('html').on('click', function(e) {
-                    if (!$(e.target).closest('#aside-container').length && niftyContainer.hasClass('aside-in')) {
-                        $.niftyAside('hide');
-                        toggleBtn.parent('li').removeClass('open');
-                    }
-                });
             }
         };
 
