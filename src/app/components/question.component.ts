@@ -14,25 +14,44 @@ import '../rxjs-operators';
   template: `
   <div *ngIf="question">
 
-
   <div *ngIf="question.statements!==undefined" class="row container">
-    <div class="col-md-7">
+    <div class="col-md-6">
       <div class="row">
-        <div class="col-md-1"  *ngIf="getLetterForStatements(indexQuestion)">
-          <label  >{{getLetter(indexQuestion)}}</label>
+        <div class="col-md-1"  *ngIf="getNumberForStatements()">
+          <label> <strong>{{getNumber()}}</strong></label>
         </div>
         <div class="col-md-11">
           <label [MathJax]="question.question" style="text-align:justify">{{question.question}}</label>
         </div>
       </div>
+      <div class="row" *ngIf="question.type==2">
+            <div *ngFor="let statement of question.statements; let indexStatement = index">
+              <div class="col-md-1">
+              </div>
+              <div class="col-md-1">
+                {{getLetter(indexStatement)}}
+              </div>
+              <div class="col-md-10">
+                  <div class="row">
+                    <label class="control-label" [innerHTML]="statement"></label>
+                  </div>
+                  <div class="row">
+                    <textarea type="text" class="form-control" name="question.{{indexStatement}}.answer"  [(ngModel)]="question.partialAnswer[indexStatement]"></textarea>
+                    <br>
+                  </div>
+              </div>
+
+            </div>
+            <br>
+      </div>
     </div>
-    <div class="col-md-5">
+    <div class="col-md-6">
     </div>
   </div>
+
   <div *ngIf="question.statements===undefined">
     <label [MathJax]="question.question" style="text-align:justify">{{question.question}}</label>
   </div>
-
   <br>
 
   <div *ngIf="question.imageUrl" >
@@ -41,32 +60,17 @@ import '../rxjs-operators';
     </div>
   </div>
 
-
-
     <div *ngIf="question.type==0" >
       <md-radio-group  class="example-radio-group" [(ngModel)]="question.answerSelected" >
         <div  *ngFor="let answer of question.options;let indexe=index" [(ngClass)]="question.selectedClass[indexe]" >
           <md-radio-button class="example-radio-button"[value]="answer">
-            <strong>{{getLetter(indexe)}} </strong> {{answer}}
+            {{getLetter(indexe)}} {{answer}}
           </md-radio-button>
         </div>
       </md-radio-group>
     </div>
 
-    <div *ngIf="question.type==2">
-      <div *ngIf="question.statements===undefined || question.statements.length==0">
-        <input type="text" class="form-control" [(ngModel)]="question.partialAnswer[0]">
-        <br>
-      </div>
-      <div *ngIf="question.statements!==undefined && question.statements.length > 0">
-        <div *ngFor="let statement of question.statements; let indexStatement = index">
-          <strong>{{getLetter(indexStatement)}} </strong>
-          <label class="control-label" [innerHTML]="statement"></label>
-          <input type="text" class="form-control" name="question.{{indexStatement}}.answer" [(ngModel)]="question.partialAnswer[indexStatement]">
-          <br>
-        </div>
-      </div>
-    </div>
+
 
     <div *ngIf="question.type==5"  >
       <div *ngFor="let statement of question.statements; let indexStatement = index">
@@ -95,6 +99,7 @@ import '../rxjs-operators';
 export class QuestionComponent implements OnInit {
   @Input() question: Question;
   @Input() indexQuestion: number;
+  @Input() totalQuestion: number;
 
   constructor(private examService: ExamService) { }
 
@@ -105,13 +110,18 @@ export class QuestionComponent implements OnInit {
 
   }
 
+  getStatement(statement, indexStatement): string {
+    return String.fromCharCode(97 + indexStatement) + ") " + statement;
+  }
   getLetter(index): string {
     return String.fromCharCode(97 + index) + ")";
   }
-  getLetterForStatements(index): boolean {
-    if (this.question.statements === undefined || this.question.statements.length < 2) {
-      return false;
-    }
+
+  getNumber(): string {
+    return String.fromCharCode(49 + this.indexQuestion) + ")";
+  }
+
+  getNumberForStatements(): boolean {
     return true;
   }
 

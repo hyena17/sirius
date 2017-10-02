@@ -18,47 +18,43 @@ import '../rxjs-operators';
   <!-- TITTLE OF EXAMEN -->
   <!-- @TODO move to another component -->
   <div  *ngIf="selectedExam"  class="panel" >
-
-
-
-  <div class="panel-colorful panel-mint" #scrollMe>
-    <div  align="center" class="panel-heading">
-        <label class="panel-title">{{selectedExam.course}}</label>
-    </div>
-    <div  align="center" class="panel-body">
-        <p class="text-bold">{{selectedExam.period}} {{selectedExam.type}}</p>
-    </div>
-  </div>
-  <div *ngIf="gradeClass!==undefined" [(ngClass)]="gradeClass" >
-    <div   align="center" class="panel-heading">
-          <label class="panel-title">{{gradeMessage}} {{goodAnswers}} de {{gradeTotal}}</label>
-    </div>
-  </div>
-  <!-- DISPLAYING QUESTIONS FOR NEW JSON-->
-  <div *ngIf="selectedExam.new!==undefined" >
-  <div class="panel-bordered panel-info" *ngFor="let question of selectedQuestions;let index = index">
-  <div class="panel-heading">
-  <h3 class="panel-title"><strong>Pregunta {{index+1}}: </strong></h3>
-  </div>
-  <div class="panel-body">
-    <div  >
-      <label [MathJax]="question.description" style="text-align:justify">{{question.description}}</label>
-    </div>
-    <div *ngIf="question.image" >
-      <div *ngFor="let image of question.imageUrl">
-        <img id="image" class="img-fluid" alt="Responsive image" src="{{image}}" width="540" height="400">
+    <div class="panel-colorful panel-mint" #scrollMe>
+      <div  align="center" class="panel-heading">
+          <label class="panel-title">{{selectedExam.course}}</label>
+      </div>
+      <div  align="center" class="panel-body">
+          <p class="text-bold">{{selectedExam.period}} {{selectedExam.type}}</p>
       </div>
     </div>
-
-    <div *ngFor="let singleQuestion of question.questions; let indexQuestion=index">
-      <question [question]="singleQuestion" [indexQuestion]="indexQuestion"></question>
+    <div *ngIf="gradeClass!==undefined" [(ngClass)]="gradeClass" >
+      <div   align="center" class="panel-heading">
+            <label class="panel-title">{{gradeMessage}} {{goodAnswers}} de {{gradeTotal}}</label>
+      </div>
     </div>
-  </div>
-  </div>
-  <div  align="text-right" style="position:fixed;bottom: 50px;right:20px">
-    <button class="btn btn-rounded btn-floating btn-success" (click)="evaluateExam();">Enviar Respuestas</button>
-  </div>
-  </div>
+    <!-- DISPLAYING QUESTIONS FOR NEW JSON-->
+    <div *ngIf="selectedExam.new!==undefined" >
+      <div class="panel-bordered panel-info" *ngFor="let questionContainer of listQuestionContainer;let index = index">
+        <div class="panel-heading">
+          <h3 class="panel-title"><strong>Pregunta {{index+1}}: </strong></h3>
+        </div>
+        <div class="panel-body">
+          <div>
+            <label [MathJax]="questionContainer.description" style="text-align:justify">{{questionContainer.description}}</label>
+          </div>
+          <br>
+          <div *ngFor="let image of questionContainer.imageUrl">
+            <img id="image" class="img-fluid" alt="Responsive image" src="{{image}}" width="540" height="400">
+          </div>
+          <br>
+          <div *ngFor="let question of questionContainer.questions; let indexQuestion=index">
+            <question [question]="question" [indexQuestion]="indexQuestion" [totalQuestion]="questionContainer.questions.length"></question>
+          </div>
+        </div>
+      </div>
+      <div  align="text-right" style="position:fixed;bottom: 50px;right:20px">
+        <button class="btn btn-rounded btn-floating btn-success" (click)="evaluateExam();">Enviar Respuestas</button>
+      </div>
+    </div>
   </div>
 
         `,
@@ -67,7 +63,7 @@ import '../rxjs-operators';
 
 export class QuestionContainerComponent implements OnInit {
   @Input() selectedExam: Exam;
-  @Input() selectedQuestions: QuestionContainer[];
+  @Input() listQuestionContainer: QuestionContainer[];
 
   @ViewChild('scrollMe') myScrollContainer: ElementRef;
 
@@ -95,7 +91,7 @@ export class QuestionContainerComponent implements OnInit {
     this.goodAnswers = 0;
     this.badAnswers = 0;
 
-    for (var questionContainer of this.selectedQuestions) {
+    for (var questionContainer of this.listQuestionContainer) {
       indice = 0;
       verdadero = 0;
       for (var question of questionContainer.questions) {

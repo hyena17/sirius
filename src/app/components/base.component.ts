@@ -20,7 +20,7 @@ import '../rxjs-operators';
     </div>
   </div>
   <div *ngIf="selectedExam" class="row">
-    <question-container #questioncontainerItem [selectedExam]="selectedExam" [selectedQuestions]='selectedExam.questionContainer'></question-container>
+    <question-container #questioncontainerItem [selectedExam]="selectedExam" [listQuestionContainer]='selectedExam.questionContainer'></question-container>
   </div>
 
         `,
