@@ -63,9 +63,9 @@ import '../rxjs-operators';
     <div *ngIf="question.type==0" >
       <md-radio-group  class="example-radio-group" [(ngModel)]="question.answerSelected" >
         <div  *ngFor="let answer of question.options;let indexe=index" [(ngClass)]="question.selectedClass[indexe]" >
-          <md-radio-button class="example-radio-button"[value]="answer">
+          <mat-radio-button class="example-radio-button"[value]="answer">
             {{getLetter(indexe)}} {{answer}}
-          </md-radio-button>
+          </mat-radio-button>
         </div>
       </md-radio-group>
     </div>
