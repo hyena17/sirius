@@ -25,24 +25,33 @@ import '../rxjs-operators';
         </div>
       </div>
       <div class="row" *ngIf="question.type==2">
-            <div *ngFor="let statement of question.statements; let indexStatement = index">
-              <div class="col-md-1">
-              </div>
-              <div class="col-md-1">
-                {{getLetter(indexStatement)}}
-              </div>
-              <div class="col-md-10">
-                  <div class="row">
-                    <label class="control-label" [innerHTML]="statement"></label>
-                  </div>
-                  <div class="row">
-                    <textarea type="text" class="form-control" name="question.{{indexStatement}}.answer"  [(ngModel)]="question.partialAnswer[indexStatement]"></textarea>
-                    <br>
-                  </div>
-              </div>
-
+        <div *ngFor="let statement of question.statements; let indexStatement = index">
+          <div class="col-md-1">
+          </div>
+          <div class="col-md-1">
+            {{getLetter(indexStatement)}}
+          </div>
+          <div class="col-md-10">
+            <div class="row">
+              <label class="control-label" [innerHTML]="statement"></label>
             </div>
-            <br>
+            <div class="row">
+              <textarea type="text" class="form-control" name="question.{{indexStatement}}.answer"  [(ngModel)]="question.partialAnswer[indexStatement]"></textarea>
+              <br>
+            </div>
+          </div>
+        </div>
+        <div *ngIf="question.statements.length==0">
+          <div class="col-md-1">
+          </div>
+          <div class="col-md-10">
+                <textarea type="text" class="form-control" name="question.0.answer"  [(ngModel)]="question.partialAnswer[0]"></textarea>
+                <br>
+
+          </div>
+        </div>
+
+        <br>
       </div>
     </div>
     <div class="col-md-6">
